@@ -14,7 +14,11 @@ class PeopleScreen extends Component {
             renderTeacher: [],
 
             dataStudent: [],
+            pickerStudents: [],
+            pickerTeachers: [],
 
+            selectedStudent: '',
+            selectedTeacher: '',
             visibleTeacher: true
         }
     }
@@ -24,6 +28,18 @@ class PeopleScreen extends Component {
            if(response.statusCode === 1){
                 this.setState({
                     dataAllUser: response.data,
+                    
+                    pickerStudents: response.data.map((item) => {
+                        if(!item.isTeacher){
+                        return <option name={item.name} >{item.name}</option>
+                        }
+                    }),
+
+                    pickerTeachers: response.data.map((item) => {
+                        if(item.isTeacher){
+                        return <option name={item.name} >{item.name}</option>
+                        }
+                    })
                     // renderStudents: response.data.map((item) => {
                     //     if(item.isTeacher === false){
                     //     return (<div>{item.name}</div>)
@@ -154,6 +170,9 @@ class PeopleScreen extends Component {
             })
         }
     }
+    onChangeSelected(e){
+        this.setState({ addName: e.target.value });
+    }
     render() {
         return (
             <div className='viewContentPeople'>
@@ -166,15 +185,26 @@ class PeopleScreen extends Component {
                             <a className='textTitleAddClassDialog'>{this.state.typeDialog === 1 ? 'Thêm giảng viên' : this.state.typeDialog === 2 ? 'Thêm sinh viên' : ''}</a>
                             <div className='divInput'>
                                 <a>Nhập tên {this.state.typeDialog === 1 ? 'giảng viên' : this.state.typeDialog === 2 ? 'sinh viên' : ''}: </a>
-                                {/* <select value={'male'} onChange={() => {}}>
-                                            <option name="male"> Male</option>
-                                    <option name="female">Female</option>
-                                </select> */}
-                                <input type='text' onChange={(event) => {
+                                <select value={this.state.addName} onChange={(e) => {
+                                    this.onChangeSelected(e)
+                                }}>
+                                    {this.state.typeDialog === 1 ? 
+                                    (
+                                        this.state.pickerTeachers
+                                    )    
+                                    :
+                                    (
+                                        this.state.pickerStudents
+                                    )
+                                }
+                                            {/* <option name="male"> Male</option>
+                                    <option name="female">Female</option> */}
+                                </select>
+                                {/* <input type='text' onChange={(event) => {
                                     this.setState({
                                         addName: event.target.value
                                     })
-                                }} />
+                                }} /> */}
                             </div>
                             
                             <div>

@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import '../css/RegisterAccountComponentCSS.css'
 import { registerAccountApi } from '../api/apiRegisterAccount'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    Redirect,
+} from 'react-router-dom'
 class RegisterAccount extends Component {
     constructor(props) {
         super(props)
@@ -10,6 +17,7 @@ class RegisterAccount extends Component {
             passwordCfm: '',
             email: '',
             code: '',
+            goToScreen: '',
         }
     }
     onChangeTextForm = (text, key) => {
@@ -65,10 +73,39 @@ class RegisterAccount extends Component {
                         passwordCfm: '',
                         email: '',
                         code: ''
+
                     })
+                }else{
+                    console.log('222222: ', response)
+                    let string = ''
+                    if(response.name !== undefined){
+                        string += response.name + '\n'
+                    }
+                    if(response.password !== undefined){
+                        string += response.password + '\n'
+                    }
+                    if(response.passwordCfm !== undefined){
+                        string += response.passwordCfm + '\n'
+                    }
+                    if(response.gmail !== undefined){
+                        string += response.gmail + '\n'
+                    }
+
+                    
+                    // if(response.gmail !== undefined){
+                    //     string += response.gmail + '\n'
+                    // }
+                    alert(string)
                 }
+            }else{
+                alert('Không thể kết nối tới server')
             }
         }
+    }
+    onClickBack= () => {
+        this.setState({
+        goToScreen: 'Login'
+        })
     }
     render() {
         return (
@@ -96,10 +133,16 @@ class RegisterAccount extends Component {
                         <a className='textTitleForm'>Code:  </a>
                         <input type='text' value={this.state.code} onChange={event => this.onChangeTextForm(event.target.value, 5)} className='inputForm'></input>
                     </div>
-
+<button onClick={this.onClickBack} className='buttonRegister'>QUAY LẠI</button>
                     <button onClick={this.onClickRegister} className='buttonRegister'>ĐĂNG KÝ</button>
+
+
+                    {this.state.goToScreen === 'Login' &&
+                        <Redirect to={{ pathname: 'Login' }} />
+                    }
                 </div>
             </div>
+            
         );
     }
 }
