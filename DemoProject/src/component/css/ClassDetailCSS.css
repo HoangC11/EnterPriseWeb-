@@ -1,0 +1,262 @@
+.header{
+    width: 100%;
+    text-align: center;
+    height: 40px;
+}
+.headerTitle {
+    font-size: 16;
+    font-weight: bold;
+    color: lightgray;
+    margin-left: 20px;
+}
+.headerLine{
+    width: 100%;
+    height: 1px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    /* thứ tự margin : x - y - z - t = top - left - bottom - right*/
+    background-color: silver;
+}
+.viewContentPeople {
+    width: 100%;
+}
+.viewTitleTeacher {
+    width: 100%;
+    margin-top: 20px;
+}
+.titleTeacher{
+    width: 80%;
+    color: coral;
+    font-weight: bold;
+    font-size: 20;    
+    margin-left: auto;
+    margin-right: auto;
+    text-align: start;
+    margin-top: 20px;
+}
+.buttonAdd {
+    /* color: blue;     */
+    /* position: fixed; */
+    margin-right: 50px;
+    margin-left: 1000px;
+    font-size: 30px;
+}
+.lineTitleTeacher {
+    width: 80%;
+    height: 1px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    /* thứ tự margin : x - y - z - t = top - left - bottom - right*/
+    background-color: coral;
+}
+.viewItemTeacher {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;    
+    text-align: start;
+    margin-top: 10px;
+}
+.avatarItemTeacher{
+    width: 32px;
+    height: 32px;
+}
+.textItemTeacher{
+    height: 100%;
+    font-size: 16;
+    color: black;
+    margin-left: 15px;
+    
+}
+
+.viewPostBlog{
+    width: 60%;
+    background-color: rgba(230, 222, 222, 0.781);
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 10px;
+    border-radius: 10px;
+    text-align: start;
+    padding: 20px;
+}
+.viewPostInput {
+    align-items: center;
+}
+.stylePostInput {
+    width: 90%;
+    height: 100px;
+    background-color: white;
+    text-align: start;
+    border-width: 0px;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-right: auto;
+    margin-left: auto;    
+    padding-left: 5px;
+}
+.divIconSendPost {
+    margin-top: 10px;
+}
+.styleIconSendPost{
+    margin-left: 10px;
+    width: 28px;
+    height:28px;    
+}
+
+.styleChooseImage {
+    /* background-color: silver; */
+    margin-left: 30px;
+}
+
+
+
+.viewBlogItem{
+    width: 60%;
+    background-color: rgba(230, 222, 222, 0.781);
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    padding: 10px;
+}
+.viewContentBlogItem{
+    width: 95%;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;    
+    margin-left: auto;
+    margin-right: auto;
+    text-align: start;
+}
+.textAuthorBlogItem{
+    margin-left: 10px;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+}
+.viewLineTitleBlogItem{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px auto;
+    margin-right: 10px auto;
+    height: 1px;
+    background-color: coral;
+}
+
+.textContentBlogItem {
+    font-size: 16px;
+    color: black;
+}
+
+.viewLineTextContentBlogItem{
+    width: 90%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left:  auto;
+    margin-right:  auto;
+    height: 1px;
+    background-color: cadetblue;
+}
+
+.textTitleCommentBlogItem {
+    font-size: 16px;
+    color: rgb(143, 138, 138);
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.viewAuthorCommentBlog{
+    width: 80%;
+    /* background-color: red; */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left:  auto;
+    margin-right:  auto;
+    text-align: center;
+}
+.viewInputCommentBlog{
+    width: 60%;
+    height: 40px;
+    background-color: rgb(205, 208, 221);
+    text-align: start;
+    border-width: 0px;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-left: 10px;    
+    padding-left: 5px;
+}
+
+.viewListCommentBlog{
+    width: 100%;
+    margin: 20px;
+}
+.viewItemCommentBlog {
+    margin-top: 5px;
+    width: 90%;
+    border-radius: 10px;
+    border-width: 1px;
+    /* border-color: black; */
+    background-color: rgb(221, 219, 219);
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.textAuthor{
+    font-weight: bold;
+}
+
+
+.divAddClassDialog {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(199, 199, 202);
+    position: absolute;
+    z-index: 1;
+    opacity: 0.7;
+    
+}
+
+.divTitleDialog {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    z-index: 2;
+    opacity: 1;
+    margin: 80px 400px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    border-radius: 10px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.textTitleAddClassDialog {
+    color: #750791;
+    font-size: 28px;
+    /* background-color: red; */
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.divInput {
+    margin-bottom: 20px;
+}
+.deleteComment{
+    color: white;
+}
+
+.deleteIcon {
+    /* color: red; */
+    /* color: slategray; */
+    background-color: silver;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-weight: bold;
+    font-size: 30px;
+    align-items: center;
+
+}

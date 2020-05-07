@@ -1,0 +1,56 @@
+.linkItem {
+    text-decoration-line: none;
+    margin: 5px auto;
+   
+}
+.ItemBlog {
+    height: 250px;
+    margin-top: 30px;
+    margin-right: 10px;
+    border: 1px solid silver;
+    box-shadow: 0 2px 3px #ccc;
+    background-color: silver;
+}
+.viewTitleBlog {
+    vertical-align: top;    
+    flex-direction: row;
+    display: flex;
+    /* background-image: url('../img/hinh.png'); */
+    background-color: white;
+    background-size: contain;
+    padding: 10px;
+}
+.viewTextTitleBlog {
+    width: 100%;
+}
+.textTitleBlog {
+    color: steelblue;
+    vertical-align: top;
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.textTitleTeacher {
+    color: steelblue;
+    margin-left: 10px;
+}
+.IconAvatar {
+    width: 46px;
+    height: 46px;
+}
+.viewLine {
+    width: 100%;
+    height: 5px;
+    background-color: silver;
+    margin: 10px 10px 10px 10px;    
+}
+.textDescription {
+    margin: 10px;
+    font-weight: bold;
+    color: steelblue;
+}
+.colorDescripption {
+    color: black;
+}
+
+
