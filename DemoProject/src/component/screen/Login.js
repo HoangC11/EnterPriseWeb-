@@ -14,8 +14,8 @@ import { userProfile } from './config/settings'
 import {forGotPassword} from '../api/apiUser'
 class Login extends React.Component {
     state = {
-        username: 'hoanghoa',
-        password: '123123123',
+        username: 'student1',
+        password: 'student1',
         goToScreen: '',
         emailForgot: ''
     }
@@ -34,12 +34,18 @@ class Login extends React.Component {
         console.log('rrrrr: ', response)
         if (response !== undefined) {
             if (response.statusCode === 1) {
-                userProfile.username = this.state.username
+                if(response.data.isAdmin){
+                    alert('Bạn không có quyền truy cập vào hệ thống này')
+                }else{
+                    userProfile.username = this.state.username
                 userProfile.password = this.state.password
                 userProfile.token = response.token
+                userProfile.isTeacher = response.data.isTeacher
                 this.setState({
                     goToScreen: 'Home'
                 })
+                }
+                
             } else {
                 alert('Đăng nhập không thành công')
             }
@@ -87,6 +93,7 @@ class Login extends React.Component {
             <div className='body-login' >
                 <div className='content'>
                     <h1 className='title'>Đăng nhập</h1>
+                    
                     <div className='divUsername'>
                         {/* <label>Username:
                         <input type='text' value={this.state.username} onChange={this.onChangeUsername}></input>

@@ -164,6 +164,24 @@ export async function sendPostBlogApi(text, idFile, idClass) {
         })
 }
 
+export async function deleteBlogApi(idClass, idBlog) {
+    const api = API + 'classes/' + idClass + '/' + idBlog
+   
+    return await fetch(api, {
+        method: 'DELETE',
+        headers: new Headers({
+            'Authorization': userProfile.token,
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
 export async function forGotPassword(email) {
     const api = API + 'users/forgot'
     const body = {

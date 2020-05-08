@@ -32,13 +32,18 @@ class LoginAdmin extends React.Component {
         console.log('rrrrr: ', response)
         if (response !== undefined) {
             if (response.statusCode === 1) {
-                userProfile.username = this.state.username
-                userProfile.password = this.state.password
-                userProfile.token = response.token
-                userProfile.rule = 2
+                if(!response.data.isAdmin){
+                    alert('Bạn không có quyền đăng nhập vào hệ thống')
+                }else{
+                    userProfile.username = this.state.username
+                    userProfile.password = this.state.password
+                    userProfile.token = response.token
+                    userProfile.rule = 2
                 this.setState({
                     goToScreen: 'HomeAdmin'
                 })
+                }
+                
             } else {
                 alert('Đăng nhập không thành công')
             }

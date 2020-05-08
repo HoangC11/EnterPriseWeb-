@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../css/ClassDetailCSS.css'
-import { uploadFileBlogApi, sendPostBlogApi } from '../../api/apiUser'
+import { uploadFileBlogApi, sendPostBlogApi, deleteBlogApi } from '../../api/apiUser'
 import BlogItem from './BlogItem'
 import {userProfile} from '../config/settings'
 
@@ -65,6 +65,20 @@ class BlogScreen extends Component {
         }
     }
 
+     onDeleteBlog = async (item) => {
+        const response =  await deleteBlogApi(this.props.idClass, item._id)
+        if (response !== undefined) {
+            if (response.statusCode === 1) {
+                alert(response.message)
+                this.props.getListBlog()
+            }else{
+                alert(response.message)
+            }
+        }else{
+            alert('Xóa không thành công ')
+        }
+    }
+
     render() {
         const { idClass } = this.props
         return (
@@ -98,7 +112,7 @@ class BlogScreen extends Component {
                     </div>
                 </div>
                 {this.state.dataBlogs.map(item => {
-                    return <BlogItem item={item} {...this.props} />
+                    return <BlogItem item={item} onDeleteBlog={this.onDeleteBlog} {...this.props} />
                 })}
             </div>
         );

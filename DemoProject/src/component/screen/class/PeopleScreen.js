@@ -10,6 +10,9 @@ class PeopleScreen extends Component {
             typeDialog: null, // 1 la them Teacher, 2 la them Student
             dataAllUser: [],
             addName: '',
+            studentName: '',
+            teacherName: '',
+
             renderStudents: [],
             renderTeacher: [],
 
@@ -26,8 +29,24 @@ class PeopleScreen extends Component {
        const response = await adminGetAllUser()
        if(response !== undefined){
            if(response.statusCode === 1){
+               let nameTC = ''
+               let nameST = ''
+               for(let item of response.data ){
+                   if(item.isTeacher){
+                       nameTC = item.name
+                       break
+                   }
+               }
+               for(let item of response.data ){
+                if(!item.isTeacher){
+                    nameST = item.name
+                    break
+                }
+            }
                 this.setState({
                     dataAllUser: response.data,
+                    teacherName: nameTC,
+                    studentName: nameST,               
                     
                     pickerStudents: response.data.map((item) => {
                         if(!item.isTeacher){
@@ -74,7 +93,8 @@ class PeopleScreen extends Component {
     onChangeVisibleAddDialog = (visible, type ) => {
         this.setState({
             visibleAddDialog: visible,
-            typeDialog: type
+            typeDialog: type,
+            addName: type === 1 ? this.state.teacherName : this.state.studentName
         })
     }
     async onAddUserForClass(){

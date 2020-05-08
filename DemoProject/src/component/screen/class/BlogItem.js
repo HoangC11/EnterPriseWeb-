@@ -61,11 +61,13 @@ class BlogItem extends Component {
             alert('Bạn không thể xóa comment này !')
         }
     }
+    
     render() {
         const { item } = this.props
         return (
             <div className='viewBlogItem'>
                 <div className='viewContentBlogItem'>
+                    <a onClick={() => { this.props.onDeleteBlog(item) }}> X </a>
                     <img
                         className='avatarItemTeacher'
                         src='https://image.flaticon.com/icons/svg/2155/2155227.svg'>

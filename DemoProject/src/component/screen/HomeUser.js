@@ -252,7 +252,9 @@ class HomeUser extends Component {
                     </div>
                 }
                 <div className='header'>
-                   
+                    <a className='hello'>Chào bạn {userProfile.username }!
+                    {/* {this.state.profileData !== undefined ? this.state.profileData.fullname : userProfile.username} */}
+                    </a>
                     <a className='titleScreen'>TRANG CHỦ</a>
 
                     {/* <div className="modal-1" tabindex="1111" role="dialog">
@@ -286,7 +288,7 @@ class HomeUser extends Component {
                         <a className="dropdown-item">Account: {profileData !== undefined ? profileData.name : ''}</a>
             <a className="dropdown-item">Tên: {profileData !== undefined ? profileData.fullname : ''}</a>
                             <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a>
-            <a className="dropdown-item">Vai trò: {userProfile.rule === 1 ? 'Sinh viên' : 'Giảng viên'}</a>
+            <a className="dropdown-item">Vai trò: {!userProfile.isTeacher? 'Sinh viên' : 'Giảng viên'}</a>
                             <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Thay đổi password</button>
                             <button className="dropdown-item btn btn-primary" onClick={() => this.setState({
                         goToScreen: 'Login'

@@ -119,11 +119,11 @@ class RegisterAccount extends Component {
                     </div>
                     <div className='viewLineForm'>
                         <a className='textTitleForm'>Password:  </a>
-                        <input type='text' value={this.state.password} onChange={event => this.onChangeTextForm(event.target.value, 2)} className='inputForm'></input>
+                        <input type='password' value={this.state.password} onChange={event => this.onChangeTextForm(event.target.value, 2)} className='inputForm'></input>
                     </div>
                     <div className='viewLineForm'>
                         <a className='textTitleForm'>Password Confirm:  </a>
-                        <input type='text' value={this.state.passwordCfm} onChange={event => this.onChangeTextForm(event.target.value, 3)} className='inputForm'></input>
+                        <input type='password' value={this.state.passwordCfm} onChange={event => this.onChangeTextForm(event.target.value, 3)} className='inputForm'></input>
                     </div>
                     <div className='viewLineForm'>
                         <a className='textTitleForm'>Email:  </a>
@@ -138,7 +138,7 @@ class RegisterAccount extends Component {
 
 
                     {this.state.goToScreen === 'Login' &&
-                        <Redirect to={{ pathname: 'Login' }} />
+                        <Redirect to={{ pathname: '/' }} />
                     }
                 </div>
             </div>
