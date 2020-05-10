@@ -30,11 +30,14 @@ class BlogScreen extends Component {
         if (this.props !== prevProps) {
             if (this.props.dataListBlog !== prevProps.dataListBlog) {
                 if (this.props.dataListBlog !== null && this.props.dataListBlog !== undefined) {
-                    if (this.props.dataListBlog.length > 0) {
-                        this.setState({
-                            dataBlogs: this.props.dataListBlog,
-                        })
-                    }
+                    // if (this.props.dataListBlog.length > 0) {
+                    //     this.setState({
+                    //         dataBlogs: this.props.dataListBlog,
+                    //     })
+                    // }
+                    this.setState({
+                        dataBlogs: this.props.dataListBlog,
+                    })
                 }
             }
         }

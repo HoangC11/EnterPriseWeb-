@@ -7,7 +7,15 @@
     font-size: 16;
     font-weight: bold;
     color: lightgray;
+    margin-left: 450px;
+    margin-right: 20px;
+}
+.headerTitle1 {
+    font-size: 16;
+    font-weight: bold;
+    color: lightgray;
     margin-left: 20px;
+    /* margin-right: 20px; */
 }
 .headerLine{
     width: 100%;
@@ -258,5 +266,7 @@
     font-weight: bold;
     font-size: 30px;
     align-items: center;
-
+}
+.headerBack {
+    margin-left: 600px;
 }

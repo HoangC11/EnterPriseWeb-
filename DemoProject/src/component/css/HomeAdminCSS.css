@@ -37,12 +37,12 @@
     height: 26px;
     margin-right: 200px;
 }
-.titleScreen {
+.titleScreens {
     width: 90%;
     font-size: 26px;
     font-weight: bold;
     margin-left: 20px;
-    margin-right: 450px;
+    /* margin-right: 5px; */
     /* background-color: fuchsia; */
 }
 .iconLogout {

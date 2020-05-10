@@ -5,6 +5,8 @@ import HomeUser from './component/screen/HomeUser'
 import ClassDetail from './component/screen/class/ClassDetail'
 import RegisterAccount from './component/screen/RegisterAccount'
 import LoginAdmin from './component/screen/LoginAdmin'
+import Profile from './component/screen/Profile'
+// import Chat from './component/screen/Chat'
 import {
   BrowserRouter as Router,
   Switch,
@@ -36,7 +38,11 @@ class App extends React.Component {
           <Route path="/ClassDetail/:id" component={ClassDetail}>
             {/* <HomeAdmin /> */}
           </Route>
-
+          <Route path="/Profile" component={Profile}>
+            {/* <Profile /> */}
+          </Route>
+          
+         
 
         </Router>
       </div>

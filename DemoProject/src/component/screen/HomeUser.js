@@ -285,11 +285,13 @@ class HomeUser extends Component {
                             Profile
                         </button>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a className="dropdown-item">Account: {profileData !== undefined ? profileData.name : ''}</a>
+                        <a className="dropdown-item">Account: {profileData !== undefined ? profileData.user.name : ''}</a>
             <a className="dropdown-item">Tên: {profileData !== undefined ? profileData.fullname : ''}</a>
                             <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a>
             <a className="dropdown-item">Vai trò: {!userProfile.isTeacher? 'Sinh viên' : 'Giảng viên'}</a>
                             <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Thay đổi password</button>
+                            <button onClick={() => this.setState({
+                        goToScreen: 'Profile'})} className="dropdown-item btn btn-primary">Cập nhật Profile</button>
                             <button className="dropdown-item btn btn-primary" onClick={() => this.setState({
                         goToScreen: 'Login'
                     })}>Log out</button>
@@ -308,7 +310,10 @@ class HomeUser extends Component {
                     </table>
 
                     {this.state.goToScreen === 'Login' &&
-                        <Redirect to={{ pathname: 'Login' }} />
+                        <Redirect to={{ pathname: '/' }} />
+                    }
+                    {this.state.goToScreen === 'Profile' &&
+                        <Redirect to={{ pathname: 'Profile' }} />
                     }
 
                 </div>

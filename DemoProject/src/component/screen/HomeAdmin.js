@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { getClasses, getAllClasses } from '../api/apiUser'
 import { createClass } from '../api/apiAdmin'
 import ItemBlog from './blog/ItemBlog'
-import '../css/HomeUserCSS.css'
+import '../css/HomeAdminCSS.css'
+import {userProfile} from './config/settings'
 import  PeopleScreen from './class/PeopleScreen'
 // import  adminGetAllUser from '..api/apiAdmin'
 import {
@@ -23,6 +24,8 @@ class HomeAdmin extends Component {
         addEndDate: this.defaultDate(new Date()),
         addTimeClass: '06:00',
         goToScreen: '',
+
+        profileData: undefined
     }
 
     defaultDate(date) {
@@ -45,6 +48,33 @@ class HomeAdmin extends Component {
                         <td></td>
                     </tr>
                 )
+            }
+        }
+    }
+    async apiGetProfile(){
+        const api = 'https://classroom1234.herokuapp.com/' + 'profile'
+        return await fetch(api, {
+            method: 'GET',
+            headers: new Headers({
+                'Authorization': userProfile.token
+                // 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjQ3ZDZmOWE4MWQ4MDAxNzJhMzQyOSIsIm5hbWUiOiJob2FuZ2hvYSIsImF2YXRhciI6Ii8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvOTY1ZWZhOWVlYzQ4NTIzNTYwOTFiZTEwNDhkMzI5Mjg_cz0yMDAmcj1wZyZkPW1tIiwiaXNUZWFjaGVyIjp0cnVlLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTg0MTEwMjc0LCJleHAiOjE1ODQ5NzQyNzR9.aj_9bwls3AFdhTkrhSQhfch09ZwnC1YbZ8VE1R5QQqk'
+            }),
+        })
+            .then(response => response.json())
+            .catch(err => {
+                return {
+                    statusCode: -1,
+                    message: 'Không thể kết nối tới server'
+                }
+            })
+    }
+    async getProfile(){
+        const response = await this.apiGetProfile()
+        if(response !== undefined){
+            if(response.statusCode === 1){
+                this.setState({
+                    profileData: response.data
+                })
             }
         }
     }
@@ -79,8 +109,52 @@ class HomeAdmin extends Component {
 
         }
     }
+    async apiChangePassword(oldPass, newPass, confirmPass){
+        const api = 'https://classroom1234.herokuapp.com/' + 'users/changepassword'
+        const jsonbody = {
+            oldPassword: oldPass,
+            newPassword: newPass,
+            passwordCfm: confirmPass,
+        }
+        return await fetch(api, {
+            method: 'POST',
+            headers: new Headers({
+                'Authorization': userProfile.token,
+                'Content-Type': 'application/json'
+                // 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjQ3ZDZmOWE4MWQ4MDAxNzJhMzQyOSIsIm5hbWUiOiJob2FuZ2hvYSIsImF2YXRhciI6Ii8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvOTY1ZWZhOWVlYzQ4NTIzNTYwOTFiZTEwNDhkMzI5Mjg_cz0yMDAmcj1wZyZkPW1tIiwiaXNUZWFjaGVyIjp0cnVlLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTg0MTEwMjc0LCJleHAiOjE1ODQ5NzQyNzR9.aj_9bwls3AFdhTkrhSQhfch09ZwnC1YbZ8VE1R5QQqk'
+            }),
+            body: JSON.stringify(jsonbody)
+        })
+            .then(response => response.json())
+            .catch(err => {
+                return {
+                    statusCode: -1,
+                    message: 'Không thể kết nối tới server'
+                }
+            })
+    }
+    
+
+    async onChangePassword(){
+        var oldPass = prompt('Nhập mật khẩu cũ ')
+        var newPass = prompt('Nhập mật khẩu mới ')
+        var confirmPass = prompt('Xác nhận mật khẩu mới ')
+        
+        const response = await this.apiChangePassword(oldPass+'', newPass+'', confirmPass+'')
+        if(response !== undefined){
+            if(response.statusCode === 1){
+                alert(response.message)
+            }else{
+                alert(response.message)
+            }
+        }else{
+            alert('Không thể kết nối tới server')
+        }
+    }
+
     componentDidMount() {
         this.getAllClass()
+        this.getProfile()
     }
     onAddClass(visible) {
 
@@ -120,6 +194,7 @@ class HomeAdmin extends Component {
         }
     }
     render() {
+        const {profileData} = this.state
         return (
             <div className='divBody'>
                 {this.state.visibleAddClassDialog &&
@@ -179,13 +254,26 @@ class HomeAdmin extends Component {
                     </div>
                 }
                 <div className='header' >
-                    <img src='https://image.flaticon.com/icons/svg/813/813670.svg' className='iconHome' />
-                    <a className='titleScreen'>HOME ADMIN</a>
-                    <img 
-                    onClick={() => this.setState({
+                    {/* <img src='https://image.flaticon.com/icons/svg/813/813670.svg' className='iconHome' /> */}
+                    <a className='titleScreens'>HOME ADMIN</a>
+                    <div className="profile dropdown">
+                        <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Profile
+                        </button>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a className="dropdown-item">Account: {profileData !== undefined ? profileData.user.name : ''}</a>
+            <a className="dropdown-item">Tên: {profileData !== undefined ? profileData.fullname : ''}</a>
+                            <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a>
+            <a className="dropdown-item">Vai trò: Admin</a>
+                            <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Thay đổi password</button>
+                            <button onClick={() => this.setState({
+                        goToScreen: 'Profile'})} className="dropdown-item btn btn-primary">Cập nhật Profile</button>
+                            <button className="dropdown-item btn btn-primary" onClick={() => this.setState({
                         goToScreen: 'LoginAdmin'
-                    })}
-                    src='https://image.flaticon.com/icons/svg/527/527471.svg' className='iconLogout' ></img>
+                    })}>Log out</button>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div className='headerLineBotton'></div>
                 <a className='textTitleClass'>Lớp học</a>
@@ -199,8 +287,11 @@ class HomeAdmin extends Component {
                         {this.state.renderData}
                     </table>
 
-                    {this.state.goToScreen === 'LoginAdmin' &&
+                        {this.state.goToScreen === 'LoginAdmin' &&
                             <Redirect to={{ pathname: 'LoginAdmin' }} />
+                        }
+                        {this.state.goToScreen === 'Profile' &&
+                        <Redirect to={{ pathname: 'Profile' }} />
                         }
 
                 </div>

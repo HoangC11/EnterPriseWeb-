@@ -4,6 +4,13 @@ import PeopleScreen from './PeopleScreen'
 import BlogScreen from './BlogScreen'
 import { getAllMemberInClass, getListBlogInClass, adminGetAllMemberInClass } from '../../api/apiUser'
 import {userProfile} from '../config/settings'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    Redirect,
+} from 'react-router-dom'
 class ClassDetail extends Component {
     constructor(props) {
         super(props)
@@ -55,12 +62,16 @@ class ClassDetail extends Component {
         })
 
     }
+    
+    
     render() {
         const idClass = this.props.match.params.id
         return (
             <div className='header'>
                 <a onClick={() => { this.onChangeSelectedPage(true) }} className='headerTitle' style={{ color: this.state.selectedPage ? 'orange' : null }}>Blog</a>
-                <a onClick={() => { this.onChangeSelectedPage(false) }} className='headerTitle' style={{ color: !this.state.selectedPage ? 'orange' : null }}>People</a>
+                <a onClick={() => { this.onChangeSelectedPage(false) }} className='headerTitle1' style={{ color: !this.state.selectedPage ? 'orange' : null }}>People</a>
+                <button onClick={() => this.setState({
+                        goToScreen: 'HomeUser'})} className="headerBack" type="back"> Back</button>
                 <div className='headerLine'></div>
                 {!this.state.selectedPage &&
                     <PeopleScreen dataTeacher={this.state.dataTeacher} dataStudents={this.state.dataStudents} idClass={this.props.match.params.id} getAllMember={() => {this.getAllMember()}}/>
@@ -68,7 +79,10 @@ class ClassDetail extends Component {
                 {this.state.selectedPage &&
                     <BlogScreen dataListBlog={this.state.dataListBlog} getListBlog={() => { this.getListBlog() }} idClass={idClass} />
                 }
-
+                
+                {this.state.goToScreen === 'HomeUser' &&
+                  <Redirect to={{ pathname: '/Home' }} />
+                    }
             </div>
         );
     }
