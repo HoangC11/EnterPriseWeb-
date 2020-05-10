@@ -38,11 +38,10 @@ class Profile extends React.Component {
     }
     async getProfile(){
         const response = await this.apiGetProfile()
-        console.log('gggggggg: ', response)
         if(response !== undefined){
             if(response.statusCode === 1){
-                console.log('222222222222222222')
                 this.setState({
+                  name: response.data.user.name,
                     fullname: response.data.fullname,
                     maso: response.data.maso,
                     facebook: response.data.social.facebook,
@@ -130,7 +129,6 @@ class Profile extends React.Component {
                 this.state.twitter.trim(),
                 this.state.instagram.trim(),
             )
-            console.log('55555555: ', response)
             if(response !== undefined){
                 if(response.statusCode === 1){
                     alert(response.message)
@@ -158,7 +156,7 @@ class Profile extends React.Component {
         <hr />
         <div className="container bootstrap snippet">
           <div className="row">
-            <div className="col-sm-10"><h1>User name</h1></div>
+    <div className="col-sm-10"><h1>Chào {this.state.name}</h1></div>
             <div className="col-sm-2"><a href="/users" className="pull-right"><img title="profile image" className="img-circle img-responsive" src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100" /></a></div>
           </div>
           <div className="row">
@@ -238,7 +236,7 @@ class Profile extends React.Component {
                         {/* <button  className="btn btn-lg btn-success" type="submit"><i className="glyphicon glyphicon-ok-sign"> Save</button> */}
                         <a className="btn btn-lg btn-success" onClick={() => {this.saveProfile()}}>Save</a>
                         <button onClick={() => this.setState({
-                        goToScreen: 'HomeUser'
+                        goToScreen: userProfile.rule === 1 ? 'HomeUser' : 'HomeAdmin'
                     })} className="btn btn-lg" type="back"> Back</button>
                       </div>
                     </div>
@@ -246,6 +244,9 @@ class Profile extends React.Component {
                   <hr />
                   {this.state.goToScreen === 'HomeUser' &&
                         <Redirect to={{ pathname: '/Home' }} />
+                    }
+                    {this.state.goToScreen === 'HomeAdmin' &&
+                        <Redirect to={{ pathname: '/HomeAdmin' }} />
                     }
                 </div>{/*/tab-pane*/}
               </div>{/*/tab-pane*/}

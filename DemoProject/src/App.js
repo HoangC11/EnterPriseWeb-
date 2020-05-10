@@ -15,7 +15,9 @@ import {
 } from 'react-router-dom'
 import { nameScreen } from './component/screen/TextNameScreen'
 class App extends React.Component {
-
+  componentDidMount(){
+    // window.location.reload(true)
+  }
   render() {
     
     return (
