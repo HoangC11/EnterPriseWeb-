@@ -3,7 +3,7 @@ import { getClasses, getAllClasses } from '../api/apiUser'
 import { createClass } from '../api/apiAdmin'
 import ItemBlog from './blog/ItemBlog'
 import '../css/HomeAdminCSS.css'
-import {userProfile} from './config/settings'
+import {userProfile, getDataLocal,removeDatalocal} from './config/settings'
 import  PeopleScreen from './class/PeopleScreen'
 // import  adminGetAllUser from '..api/apiAdmin'
 import {
@@ -64,7 +64,7 @@ class HomeAdmin extends Component {
             .catch(err => {
                 return {
                     statusCode: -1,
-                    message: 'Không thể kết nối tới server'
+                    message: 'Unable to connect to the server'
                 }
             })
     }
@@ -129,16 +129,16 @@ class HomeAdmin extends Component {
             .catch(err => {
                 return {
                     statusCode: -1,
-                    message: 'Không thể kết nối tới server'
+                    message: 'Unable to connect to the server'
                 }
             })
     }
     
 
     async onChangePassword(){
-        var oldPass = prompt('Nhập mật khẩu cũ ')
-        var newPass = prompt('Nhập mật khẩu mới ')
-        var confirmPass = prompt('Xác nhận mật khẩu mới ')
+        var oldPass = prompt('Enter the old password ')
+        var newPass = prompt('Enter the new password ')
+        var confirmPass = prompt('Confirm the new password ')
         
         const response = await this.apiChangePassword(oldPass+'', newPass+'', confirmPass+'')
         if(response !== undefined){
@@ -148,11 +148,14 @@ class HomeAdmin extends Component {
                 alert(response.message)
             }
         }else{
-            alert('Không thể kết nối tới server')
+            alert('Unable to connect to the server')
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        if(userProfile.token === undefined || userProfile.token === ''){
+            await getDataLocal()
+        }
         this.getAllClass()
         this.getProfile()
     }
@@ -165,9 +168,9 @@ class HomeAdmin extends Component {
     onClickAddClass = async () => {
         const { addNameClass, addDesClass, addStartDate, addEndDate, addTimeClass } = this.state
         if (addNameClass.trim() === '') {
-            alert('Vui lòng nhập tên lớp học !')
+            alert('Please enter the class name !')
         } else if (addDesClass.trim() === '') {
-            alert('Vui lòng nhập nội dung giới thiệu về lớp học !')
+            alert('Please enter the introductory content about the class !')
         } else {
             let name = addNameClass
             let des = addDesClass
@@ -203,9 +206,9 @@ class HomeAdmin extends Component {
 
                         </div>
                         <div className='divTitleDialog'>
-                            <a className='textTitleAddClassDialog'>Thêm lớp học</a>
+                            <a className='textTitleAddClassDialog'>Add Class</a>
                             <div>
-                                <a>Tên lớp học: </a>
+                                <a>Name class: </a>
                                 <input type='text' onChange={(event) => {
                                     this.setState({
                                         addNameClass: event.target.value
@@ -213,7 +216,7 @@ class HomeAdmin extends Component {
                                 }} />
                             </div>
                             <div>
-                                <a>Giới thiệu: </a>
+                                <a>Description: </a>
                                 <input type='text' onChange={(event) => {
                                     this.setState({
                                         addDesClass: event.target.value
@@ -221,7 +224,7 @@ class HomeAdmin extends Component {
                                 }} />
                             </div>
                             <div>
-                                <a>Ngày bắt đầu: </a>
+                                <a>Started day: </a>
                                 <input type='date' value={this.state.addStartDate} onChange={(event) => {
                                     this.setState({
                                         addStartDate: event.target.value
@@ -229,7 +232,7 @@ class HomeAdmin extends Component {
                                 }} />
                             </div>
                             <div>
-                                <a>Ngày kết thúc: </a>
+                                <a>Ended day: </a>
                                 <input type='date' value={this.state.addEndDate} onChange={(event) => {
                                     this.setState({
                                         addEndDate: event.target.value
@@ -237,7 +240,7 @@ class HomeAdmin extends Component {
                                 }} />
                             </div>
                             <div>
-                                <a>Thời gian: </a>
+                                <a>Time: </a>
                                 <input type='time' value={this.state.addTimeClass} onChange={(event) => {
                                     this.setState({
                                         addTimeClass: event.target.value
@@ -262,24 +265,27 @@ class HomeAdmin extends Component {
                         </button>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a className="dropdown-item">Account: {profileData !== undefined ? profileData.user.name : ''}</a>
-            <a className="dropdown-item">Tên: {profileData !== undefined ? profileData.fullname : ''}</a>
+            <a className="dropdown-item">Name: {profileData !== undefined ? profileData.fullname : ''}</a>
                             <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a>
-            <a className="dropdown-item">Vai trò: Admin</a>
-                            <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Thay đổi password</button>
+            <a className="dropdown-item">Role: Admin</a>
+                            <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button>
                             <button onClick={() => this.setState({
-                        goToScreen: 'Profile'})} className="dropdown-item btn btn-primary">Cập nhật Profile</button>
-                            <button className="dropdown-item btn btn-primary" onClick={() => this.setState({
-                        goToScreen: 'LoginAdmin'
-                    })}>Log out</button>
+                        goToScreen: 'Profile'})} className="dropdown-item btn btn-primary">Update Profile</button>
+                            <button className="dropdown-item btn btn-primary" onClick={() => {
+                                removeDatalocal()
+                                this.setState({
+                                    goToScreen: 'LoginAdmin'
+                                })
+                            }}>Log out</button>
                         </div>
                     </div>
                     
                 </div>
                 <div className='headerLineBotton'></div>
-                <a className='textTitleClass'>Lớp học</a>
+                <a className='textTitleClass'>Class</a>
                 <div className='divTitleClass'>
                     {/* <a className='textTitlePeople'>All People</a> */}
-                    <a onClick={() => { this.onAddClass(true) }} className='textAddClass'>Thêm lớp học + </a>
+                    <a onClick={() => { this.onAddClass(true) }} className='textAddClass'>Add Class + </a>
                 </div>
                 <div style={{}} className='ListItem'>
 

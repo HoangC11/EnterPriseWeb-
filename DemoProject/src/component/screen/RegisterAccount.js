@@ -112,7 +112,7 @@ class RegisterAccount extends Component {
             <div className='body'>
                 
                 <div className='viewRegister'>
-                <div className='title'>Đăng ký tài khoản</div>
+                <div className='title'>Register Account</div>
                     <div className='viewLineForm'>
                         <a className='textTitleForm'>Username:  </a>
                         <input type='text' value={this.state.username} onChange={event => this.onChangeTextForm(event.target.value, 1)} className='inputForm'></input>
@@ -133,8 +133,8 @@ class RegisterAccount extends Component {
                         <a className='textTitleForm'>Code:  </a>
                         <input type='text' value={this.state.code} onChange={event => this.onChangeTextForm(event.target.value, 5)} className='inputForm'></input>
                     </div>
-<button onClick={this.onClickBack} className='buttonRegister'>QUAY LẠI</button>
-                    <button onClick={this.onClickRegister} className='buttonRegister'>ĐĂNG KÝ</button>
+<button onClick={this.onClickBack} className='buttonRegister'>BACK</button>
+                    <button onClick={this.onClickRegister} className='buttonRegister'>REGISTER</button>
 
 
                     {this.state.goToScreen === 'Login' &&

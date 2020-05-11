@@ -10,12 +10,24 @@ import {
 import HomeAdmin from './HomeAdmin'
 import HomeUser from './HomeUser'
 import { userLoginApi } from '../api/apiLogin'
-import { userProfile } from './config/settings'
+import { userProfile, saveDataLocal, getDataLocal } from './config/settings'
 class LoginAdmin extends React.Component {
     state = {
         username: 'Admin',
         password: 'admin1234',
         goToScreen: '',
+    }
+    async componentDidMount(){
+        if(localStorage.getItem('token') !== undefined){
+            var rule = localStorage.getItem('isAdmin')
+            if(rule == 2){
+                await  getDataLocal()
+                this.setState({
+                    goToScreen: 'HomeAdmin'
+                })
+            }
+           
+        }
     }
     onChangeUsername = (event) => {
         this.setState({
@@ -39,6 +51,14 @@ class LoginAdmin extends React.Component {
                     userProfile.password = this.state.password
                     userProfile.token = response.token
                     userProfile.rule = 2
+                    userProfile.isTeacher = response.data.isTeacher
+                    saveDataLocal(
+                        this.state.username,
+                        this.state.password,
+                        response.token,
+                        2,
+                        response.data.isTeacher
+                    )
                 this.setState({
                     goToScreen: 'HomeAdmin'
                 })

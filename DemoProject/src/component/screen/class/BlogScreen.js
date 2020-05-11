@@ -78,7 +78,7 @@ class BlogScreen extends Component {
                 alert(response.message)
             }
         }else{
-            alert('Xóa không thành công ')
+            alert('Delete Failed ')
         }
     }
 
@@ -101,7 +101,7 @@ class BlogScreen extends Component {
                             <input type='file' onChange={this.onChangeImagePostBlog} ref={ref => this.fileInput = ref} />
                         </a>
                         <div className='viewPostInput'>
-                            <textarea placeholder='Nhập nội dung bài đăng' value={this.state.textPost} className='stylePostInput' onChange={event => this.onChangeTextPost(event.target.value)}></textarea>
+                            <textarea placeholder='Enter the content of the post' value={this.state.textPost} className='stylePostInput' onChange={event => this.onChangeTextPost(event.target.value)}></textarea>
                             {/* <div className='divIconSendPost'>
                                 
                             </div> */}

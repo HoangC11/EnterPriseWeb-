@@ -10,7 +10,7 @@ import {
 import HomeAdmin from './HomeAdmin'
 import HomeUser from './HomeUser'
 import { userLoginApi } from '../api/apiLogin'
-import { userProfile } from './config/settings'
+import { userProfile, saveDataLocal, getDataLocal } from './config/settings'
 import {forGotPassword} from '../api/apiUser'
 class Login extends React.Component {
     state = {
@@ -29,6 +29,21 @@ class Login extends React.Component {
             password: event.target.value
         })
     }
+    async componentDidMount(){
+        if(localStorage.getItem('token') !== undefined && localStorage.getItem('token') !== null){
+            var rule = localStorage.getItem('isAdmin')
+            console.log('vbvvvvvv: ', rule)
+            if(rule == 2){
+
+            }else{
+                await getDataLocal()
+                 this.setState({
+                 goToScreen: 'Home'
+                })
+            }
+            
+        }
+    }
     onClickLogin = async () => {
         const response = await userLoginApi(this.state.username, this.state.password)
         console.log('rrrrr: ', response)
@@ -41,6 +56,14 @@ class Login extends React.Component {
                 userProfile.password = this.state.password
                 userProfile.token = response.token
                 userProfile.isTeacher = response.data.isTeacher
+                userProfile.rule = response.data.isAdmin
+                saveDataLocal(
+                    this.state.username,
+                    this.state.password,
+                    response.token,
+                    response.data.isAdmin,
+                    response.data.isTeacher
+                )
                 this.setState({
                     goToScreen: 'Home'
                 })

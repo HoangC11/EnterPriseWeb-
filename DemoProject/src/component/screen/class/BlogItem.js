@@ -52,13 +52,13 @@ class BlogItem extends Component {
         const response = await this.apiDeleteComment(idComment)
         if(response !== undefined){
             if(response.statusCode === 1){
-                alert('Xóa thành công')
+                alert('Delete Success')
                 this.props.getListBlog()
             }else{
-                alert('Bạn không thể xóa comment này !')
+                alert('You cannot delete this comment !')
             }
         }else{
-            alert('Bạn không thể xóa comment này !')
+            alert('You cannot delete this comment !')
         }
     }
     
@@ -77,27 +77,27 @@ class BlogItem extends Component {
                     <a className='textContentBlogItem'>{item.text}</a>
                     {item.image !== undefined && item.image !== '' &&
                         (
-                            <div><a href={'https://drive.google.com/uc?id=' + item.image} target='_blank' download>Tải file đính kèm</a></div>
+                            <div><a href={'https://drive.google.com/uc?id=' + item.image} target='_blank' download>Download the attached file</a></div>
                         )
                     }
                     <div className='viewLineTextContentBlogItem' />
-                    <a className='textTitleCommentBlogItem'>Nhận xét của lớp học</a>
+                    <a className='textTitleCommentBlogItem'>Class comment</a>
                     {item.comments.length > 0 && !this.state.showComment &&
-                        <p onClick={() => { this.changeShowComments(true) }}>Hiện {item.comments.length} bình luận</p>
+                        <p onClick={() => { this.changeShowComments(true) }}>Show {item.comments.length} comment</p>
                     }
                     {item.comments.length > 0 && this.state.showComment &&
                         <div className='viewListCommentBlog'>
                             {item.comments.map(item => {
                                 return (
                                     <div className='viewItemCommentBlog'>
-                                    <a onClick={() => {this.onDeleteComment(item._id)}} className='deleteComment'>Xóa</a>
+                                    <a onClick={() => {this.onDeleteComment(item._id)}} className='deleteComment'>Delete</a>
                                         <div className='textAuthor'>{item.author}   </div>
                                         
                                         <div>{item.text}</div>
                                     </div>
                                 )
                             })}
-                            <p onClick={() => { this.changeShowComments(false) }}>Ẩn bình luận</p>
+                            <p onClick={() => { this.changeShowComments(false) }}>Hide comments</p>
                         </div>
 
                     }
@@ -106,7 +106,7 @@ class BlogItem extends Component {
                             className='avatarItemTeacher'
                             src='https://image.flaticon.com/icons/svg/2155/2155227.svg'>
                         </img>
-                        <input placeholder='Nhập bình luận của bạn' type='text' value={this.state.textComment} className='viewInputCommentBlog' onChange={(event) => { this.onChangeTextComment(event.target.value) }}></input>
+                        <input placeholder='Enter your comment' type='text' value={this.state.textComment} className='viewInputCommentBlog' onChange={(event) => { this.onChangeTextComment(event.target.value) }}></input>
                         <img
                             onClick={() => { this.sendCommentPost(this.state.textComment.trim(), item._id) }}
                             className='styleIconSendPost'

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {userProfile} from '../screen/config/settings'
+import {userProfile, getDataLocal} from '../screen/config/settings'
 import {
     BrowserRouter as Router,
     Switch,
@@ -56,7 +56,10 @@ class Profile extends React.Component {
             // alert('456')
         }
     }
-    componentDidMount(){
+    async componentDidMount(){
+      if(userProfile.token === undefined || userProfile.token === ''){
+        await getDataLocal()
+      }
         this.getProfile()
     }
     onChangeText(text, type){

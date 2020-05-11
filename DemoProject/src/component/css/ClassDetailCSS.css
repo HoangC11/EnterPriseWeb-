@@ -156,6 +156,7 @@
 .textContentBlogItem {
     font-size: 16px;
     color: black;
+    word-wrap: break-word;
 }
 
 .viewLineTextContentBlogItem{

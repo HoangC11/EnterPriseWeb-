@@ -50,13 +50,23 @@ class PeopleScreen extends Component {
                     
                     pickerStudents: response.data.map((item) => {
                         if(!item.isTeacher){
-                        return <option name={item.name} >{item.name}</option>
+                        return (
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {item.name}
+                            <button type='submit' value='Add' onClick={() => { this.onAddUserForClass()}}/>
+                          </li>
+                            )
                         }
                     }),
 
                     pickerTeachers: response.data.map((item) => {
                         if(item.isTeacher){
-                        return <option name={item.name} >{item.name}</option>
+                        return (
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {item.name}
+                            <button type='submit' value='Add' onClick={() => { this.onAddUserForClass()}}/>
+                          </li>
+                            )
                         }
                     })
                     // renderStudents: response.data.map((item) => {
@@ -101,7 +111,7 @@ class PeopleScreen extends Component {
         if(this.state.typeDialog === 1){
             //Thêm giảng viên
             if(this.state.addName.trim() === ''){
-                alert('Không được để trống tên giảng viên !')
+                alert('Lecturer name cannot be empty !')
             }else {
                 const user = this.state.dataAllUser.filter((item) => {
                     if(item.isTeacher === true){
@@ -115,7 +125,7 @@ class PeopleScreen extends Component {
                         const response = await adminAddTeacher(this.props.idClass, user[0].id)
                         if(response !== undefined){
                             if(response.statusCode === 1){
-                                alert('Thêm thành công !')
+                                alert('Add Success!')
                                 this.setState({
                                     addName: '',
                                     visibleAddDialog: false
@@ -125,19 +135,19 @@ class PeopleScreen extends Component {
                                 alert(response.message)
                             }
                         }else{
-                            alert('Thêm thất bại !')
+                            alert('Add Failed !')
                         }
                     }else{
-                        alert('Giảng viên không tồn tại.')
+                        alert('Lecturer does not exist.')
                     }
                 }else{
-                    alert('Giảng viên không tồn tại.')
+                    alert('Lecturer does not exist.')
                 }
             }
         }else if( this.state.typeDialog === 2){
             // Thêm sinh viên
             if(this.state.addName.trim() === ''){
-                alert('Không được để trống tên sinh viên !')
+                alert('Student name cannot be empty !')
             }else {
                 const user = this.state.dataAllUser.filter((item) => {
                     if(item.isTeacher !== true){
@@ -151,7 +161,7 @@ class PeopleScreen extends Component {
                         const response = await adminAddStudent(this.props.idClass, user[0].id)
                         if(response !== undefined){
                             if(response.statusCode === 1){
-                                alert('Thêm thành công !')
+                                alert('Add Success !')
                                 this.setState({
                                     addName: '',
                                     visibleAddDialog: false
@@ -161,13 +171,13 @@ class PeopleScreen extends Component {
                                 alert(response.message)
                             }
                         }else{
-                            alert('Thêm thất bại !')
+                            alert('Add Failed !')
                         }
                     }else{
-                        alert('Sinh viên không tồn tại.')
+                        alert('Student does not exist.')
                     }
                 }else{
-                    alert('Sinh viên không tồn tại.')
+                    alert('Student does not exist.')
                 }
             }
         }else{
@@ -176,7 +186,7 @@ class PeopleScreen extends Component {
     }
 
     onDeleteUser(user, type){
-        console.log('mmmmmmmmmmmmm: ', user)
+        // console.log('mmmmmmmmmmmmm: ', user)
         if(type === 0){
             this.setState({
                 visibleTeacher: false
@@ -204,7 +214,30 @@ class PeopleScreen extends Component {
                         <div className='divTitleDialog'>
                             <a className='textTitleAddClassDialog'>{this.state.typeDialog === 1 ? 'Thêm giảng viên' : this.state.typeDialog === 2 ? 'Thêm sinh viên' : ''}</a>
                             <div className='divInput'>
-                                <a>Nhập tên {this.state.typeDialog === 1 ? 'giảng viên' : this.state.typeDialog === 2 ? 'sinh viên' : ''}: </a>
+                                <ul class="list-group">
+                                {this.state.typeDialog === 1 ? 
+                                    (
+                                        this.state.pickerTeachers
+                                    )    
+                                    :
+                                    (
+                                        this.state.pickerStudents
+                                    )
+                              }
+  {/* <li class="list-group-item d-flex justify-content-between align-items-center">
+    Cras justo odio
+    <span class="badge badge-primary badge-pill">14</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Dapibus ac facilisis in
+    <span class="badge badge-primary badge-pill">2</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Morbi leo risus
+    <span class="badge badge-primary badge-pill">1</span>
+  </li> */}
+</ul>
+                                {/* <a>Nhập tên {this.state.typeDialog === 1 ? 'giảng viên' : this.state.typeDialog === 2 ? 'sinh viên' : ''}: </a>
                                 <select value={this.state.addName} onChange={(e) => {
                                     this.onChangeSelected(e)
                                 }}>
@@ -217,19 +250,12 @@ class PeopleScreen extends Component {
                                         this.state.pickerStudents
                                     )
                                 }
-                                            {/* <option name="male"> Male</option>
-                                    <option name="female">Female</option> */}
-                                </select>
-                                {/* <input type='text' onChange={(event) => {
-                                    this.setState({
-                                        addName: event.target.value
-                                    })
-                                }} /> */}
+                                </select> */}
                             </div>
                             
-                            <div>
+                            {/* <div>
                                 <input type='submit' value='Thêm' onClick={() => {this.onAddUserForClass()}}></input>
-                            </div>
+                            </div> */}
 
 
                         </div>
