@@ -37,7 +37,7 @@ class ClassDetail extends Component {
     }
     async getAllMember(){
         let response = undefined
-        if(userProfile.rule === 2 ){
+        if(userProfile.isAdmin || userProfile.isStaff ){
             response = await adminGetAllMemberInClass(this.props.match.params.id)
         }else{
             response = await getAllMemberInClass(this.props.match.params.id)
@@ -71,12 +71,12 @@ class ClassDetail extends Component {
         const idClass = this.props.match.params.id
         return (
             <div className='header'>
-                {userProfile.rule !== 2 && <a onClick={() => { this.onChangeSelectedPage(true) }} className='headerTitle' style={{ color: this.state.selectedPage ? 'orange' : null }}>Blog</a>}
-                <a onClick={() => { this.onChangeSelectedPage(false) }} className='headerTitle1' style={{ color: userProfile.rule === 2 ? 'orange' : ( !this.state.selectedPage ? 'orange' : null ) }}>People</a>
+                {!userProfile.isAdmin  && <a onClick={() => { this.onChangeSelectedPage(true) }} className='headerTitle' style={{ color: this.state.selectedPage ? 'orange' : null }}>Blog</a>}
+                <a onClick={() => { this.onChangeSelectedPage(false) }} className='headerTitle1' style={{ color: userProfile.isAdmin ? 'orange' : ( !this.state.selectedPage ? 'orange' : null ) }}>People</a>
                 <button onClick={() => this.setState({
-                        goToScreen: userProfile.rule === 1 ? 'HomeUser' : 'HomeAdmin'})} className="headerBack" type="back"> Back</button>
+                        goToScreen: !userProfile.isAdmin ? 'HomeUser' : 'HomeAdmin'})} className="headerBack" type="back"> Back</button>
                 <div className='headerLine'></div>
-                {userProfile.rule === 2 ? 
+                {userProfile.isAdmin ? 
                 (
                     <PeopleScreen dataTeacher={this.state.dataTeacher} dataStudents={this.state.dataStudents} idClass={this.props.match.params.id} getAllMember={() => {this.getAllMember()}}/>
                 )   

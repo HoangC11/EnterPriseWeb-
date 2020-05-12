@@ -8,6 +8,7 @@ import LoginAdmin from './component/screen/LoginAdmin'
 import Profile from './component/screen/Profile'
 import ForgotPassword from './component/screen/ForgotPassword'
 import Dashboard from './component/screen/Dashboard'
+import ManagementAllUser from './component/screen/ManagementAllUser'
 // import Chat from './component/screen/Chat'
 import {
   BrowserRouter as Router,
@@ -51,6 +52,9 @@ class App extends React.Component {
           </Route>
 
           <Route path="/Dashboard" component={Dashboard}>
+            {/* <Profile /> */}
+          </Route>
+          <Route path="/ManagementAllUser" component={ManagementAllUser}>
             {/* <Profile /> */}
           </Route>
           

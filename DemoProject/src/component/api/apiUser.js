@@ -22,7 +22,7 @@ export async function getClasses() {
 }
 
 export async function getAllClasses() {
-    const api = API + 'admin/class/all'
+    const api = API + 'staff/class/all'
     return await fetch(api, {
         method: 'GET',
         headers: new Headers({
@@ -58,7 +58,7 @@ export async function getAllMemberInClass(idClass) {
 }
 
 export async function adminGetAllMemberInClass(idClass) {
-    const api = API + 'admin/class/'+idClass+'/members'
+    const api = API + 'staff/class/'+idClass+'/members'
     return await fetch(api, {
         method: 'GET',
         headers: new Headers({

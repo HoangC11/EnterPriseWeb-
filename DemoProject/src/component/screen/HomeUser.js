@@ -292,9 +292,9 @@ class HomeUser extends Component {
             <a className="dropdown-item">Name: {profileData !== undefined ? profileData.fullname : ''}</a>
                             <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a>
             <a className="dropdown-item">Role: {!userProfile.isTeacher? 'Sinh viên' : 'Giảng viên'}</a>
-                            <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Thay đổi password</button>
+                            <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button>
                             <button onClick={() => this.setState({
-                        goToScreen: 'Profile'})} className="dropdown-item btn btn-primary">Cập nhật Profile</button>
+                        goToScreen: 'Profile'})} className="dropdown-item btn btn-primary">Update Profile</button>
                             <button className="dropdown-item btn btn-primary" onClick={() => {
                                 removeDatalocal()
                                 this.setState({                                

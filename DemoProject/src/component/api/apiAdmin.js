@@ -3,7 +3,7 @@ const API = 'https://classroom1234.herokuapp.com/'
 const errorMessage = 'Không thể kết nối tới server'
 
 export async function createClass(name, des, startDate, endDate, time) {
-    const api = API + 'admin/class/create'
+    const api = API + 'staff/class/create'
     const jsonBody = {
         name: name,
         description: des,
@@ -30,7 +30,7 @@ export async function createClass(name, des, startDate, endDate, time) {
 }
 
 export async function adminGetAllUser() {
-    const api = API + 'admin/user/all'
+    const api = API + 'staff/user/all'
     return await fetch(api, {
         method: 'GET',
         headers: new Headers({
@@ -46,8 +46,10 @@ export async function adminGetAllUser() {
         })
 }
 
+
+
 export async function adminGetAllProfile() {
-    const api = API + 'admin/profile/all'
+    const api = API + 'staff/profile/all'
     return await fetch(api, {
         method: 'GET',
         headers: new Headers({
@@ -64,7 +66,7 @@ export async function adminGetAllProfile() {
 }
 
 export async function adminGetAllClass() {
-    const api = API + 'admin/class/all'
+    const api = API + 'staff/class/all'
     return await fetch(api, {
         method: 'GET',
         headers: new Headers({
@@ -82,7 +84,7 @@ export async function adminGetAllClass() {
 
 
 export async function adminAddTeacher(idClass, idTeacher) {
-    const api = API + 'admin/class/' + idClass + '/addteacher/' + idTeacher
+    const api = API + 'staff/class/' + idClass + '/addteacher/' + idTeacher
     return await fetch(api, {
         method: 'POST',
         headers: new Headers({
@@ -100,7 +102,7 @@ export async function adminAddTeacher(idClass, idTeacher) {
 
 
 export async function adminAddStudent(idClass, idStudent) {
-    const api = API + 'admin/class/' + idClass + '/addstudent/' + idStudent
+    const api = API + 'staff/class/' + idClass + '/addstudent/' + idStudent
     return await fetch(api, {
         method: 'POST',
         headers: new Headers({
@@ -117,3 +119,133 @@ export async function adminAddStudent(idClass, idStudent) {
 }
 
 
+// management
+
+export async function managerGetAllUser() {
+    const api = API + 'admin/user/all'
+    return await fetch(api, {
+        method: 'GET',
+        headers: new Headers({
+            'Authorization': userProfile.token
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
+export async function managerGetProfileById(id) {
+    const api = API + 'admin/profile/' + id
+    return await fetch(api, {
+        method: 'GET',
+        headers: new Headers({
+            'Authorization': userProfile.token
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
+export async function managerAddUser(name, gmail, password, isTeacher, isStaff) {
+    const api = API + 'admin/user/add'
+    const jsonBody ={ 
+        name,
+        gmail,
+        password,
+        isTeacher, 
+        isStaff
+    }
+    return await fetch(api, {
+        method: 'POST',
+        headers: new Headers({
+            'Authorization': userProfile.token,
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(jsonBody)
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
+export async function managerChangeRuleStaff(id) {
+    const api = API + 'admin/changerole/staff/' + id
+    return await fetch(api, {
+        method: 'POST',
+        headers: new Headers({
+            'Authorization': userProfile.token
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
+export async function managerChangeRuleTeacher(id) {
+    const api = API + 'admin/changerole/teacher/' + id
+    return await fetch(api, {
+        method: 'POST',
+        headers: new Headers({
+            'Authorization': userProfile.token
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
+
+export async function managerRemoveUser(id) {
+    const api = API + 'admin/user/remove/' + id
+    return await fetch(api, {
+        method: 'DELETE',
+        headers: new Headers({
+            'Authorization': userProfile.token
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
+export async function managerGetUserProfile(id) {
+    const api = API + 'admin/profile/' + id
+    return await fetch(api, {
+        method: 'GET',
+        headers: new Headers({
+            'Authorization': userProfile.token
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}

@@ -53,7 +53,8 @@ class PeopleScreen extends Component {
                         return (
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                             {item.name}
-                            <button type='submit' value='Add' onClick={() => { this.onAddUserForClass()}}/>
+                            <button onClick={() => { this.onAddUserForClass(item)}} class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
+                            
                           </li>
                             )
                         }
@@ -64,7 +65,7 @@ class PeopleScreen extends Component {
                         return (
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                             {item.name}
-                            <button type='submit' value='Add' onClick={() => { this.onAddUserForClass()}}/>
+                            <button onClick={() => { this.onAddUserForClass(item)}} class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
                           </li>
                             )
                         }
@@ -107,29 +108,14 @@ class PeopleScreen extends Component {
             addName: type === 1 ? this.state.teacherName : this.state.studentName
         })
     }
-    async onAddUserForClass(){
+    async onAddUserForClass(item){
         if(this.state.typeDialog === 1){
             //Thêm giảng viên
-            if(this.state.addName.trim() === ''){
-                alert('Lecturer name cannot be empty !')
-            }else {
-                const user = this.state.dataAllUser.filter((item) => {
-                    if(item.isTeacher === true){
-                        if(item.name.toUpperCase().normalize() === this.state.addName.toUpperCase().normalize()){
-                            return item
-                        }
-                    }
-                })
-                if(user !== undefined){
-                    if(user.length > 0){
-                        const response = await adminAddTeacher(this.props.idClass, user[0].id)
+            const response = await adminAddTeacher(this.props.idClass, item.id)
                         if(response !== undefined){
                             if(response.statusCode === 1){
                                 alert('Add Success!')
-                                this.setState({
-                                    addName: '',
-                                    visibleAddDialog: false
-                                })
+                                
                                 this.props.getAllMember()
                             }else{
                                 alert(response.message)
@@ -137,35 +123,12 @@ class PeopleScreen extends Component {
                         }else{
                             alert('Add Failed !')
                         }
-                    }else{
-                        alert('Lecturer does not exist.')
-                    }
-                }else{
-                    alert('Lecturer does not exist.')
-                }
-            }
         }else if( this.state.typeDialog === 2){
             // Thêm sinh viên
-            if(this.state.addName.trim() === ''){
-                alert('Student name cannot be empty !')
-            }else {
-                const user = this.state.dataAllUser.filter((item) => {
-                    if(item.isTeacher !== true){
-                        if(item.name.toUpperCase().normalize() === this.state.addName.toUpperCase().normalize()){
-                            return item
-                        }
-                    }
-                })
-                if(user !== undefined){
-                    if(user.length > 0){
-                        const response = await adminAddStudent(this.props.idClass, user[0].id)
+            const response = await adminAddStudent(this.props.idClass, item.id)
                         if(response !== undefined){
                             if(response.statusCode === 1){
-                                alert('Add Success !')
-                                this.setState({
-                                    addName: '',
-                                    visibleAddDialog: false
-                                })
+                                alert('Add Success!')
                                 this.props.getAllMember()
                             }else{
                                 alert(response.message)
@@ -173,13 +136,6 @@ class PeopleScreen extends Component {
                         }else{
                             alert('Add Failed !')
                         }
-                    }else{
-                        alert('Student does not exist.')
-                    }
-                }else{
-                    alert('Student does not exist.')
-                }
-            }
         }else{
 
         }
@@ -265,14 +221,14 @@ class PeopleScreen extends Component {
                 <div className='viewTitleTeacher'>
                     <div className='titleTeacher'>
                         <a>Teacher</a>
-                        {userProfile.rule === 2  && 
+                        {userProfile.isStaff && 
                         (<a className='buttonAdd' onClick={() => { this.onChangeVisibleAddDialog(true, 1)}}>+</a>)
                         }
                     </div>
                     <div className='lineTitleTeacher'></div>
                     {this.state.visibleTeacher && 
                         <div className='viewItemTeacher'>
-                        {userProfile.rule === 2 && <a onClick={() => {this.onDeleteUser(this.props.dataTeacher, 0)}} className='deleteIcon'> X </a>}
+                        {userProfile.isStaff && <a onClick={() => {this.onDeleteUser(this.props.dataTeacher, 0)}} className='deleteIcon'> X </a>}
                             <img
                                 className='avatarItemTeacher'
                                 src={this.props.dataTeacher !== undefined ? this.props.dataTeacher.avatar : 'https://image.flaticon.com/icons/svg/2155/2155227.svg'}>
@@ -285,7 +241,7 @@ class PeopleScreen extends Component {
                     <div className='titleTeacher'>
                         <a>Students</a>
                         
-                        {userProfile.rule === 2  && 
+                        {userProfile.isStaff && 
                         (<a className='buttonAdd' onClick={() => { this.onChangeVisibleAddDialog(true, 2)}}>+</a>)
                         }
                     </div>
@@ -296,7 +252,7 @@ class PeopleScreen extends Component {
                         this.state.dataStudent.map(item => {
                             return (
                                 <div className='viewItemTeacher'>
-                                    {userProfile.rule === 2 && <a onClick={() => {this.onDeleteUser(item, 1)}} className='deleteIcon'> X </a>}
+                                    {userProfile.isStaff && <a onClick={() => {this.onDeleteUser(item, 1)}} className='deleteIcon'> X </a>}
                                     <img
                                         className='avatarItemTeacher'
                                         src={item.avatar}>

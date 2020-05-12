@@ -49,20 +49,22 @@ class Login extends React.Component {
         console.log('rrrrr: ', response)
         if (response !== undefined) {
             if (response.statusCode === 1) {
-                if(response.data.isAdmin){
+                if(response.data.isAdmin || response.data.isStaff){
                     alert('Bạn không có quyền truy cập vào hệ thống này')
                 }else{
                     userProfile.username = this.state.username
                 userProfile.password = this.state.password
                 userProfile.token = response.token
                 userProfile.isTeacher = response.data.isTeacher
-                userProfile.rule = response.data.isAdmin
+                userProfile.isAdmin = response.data.isAdmin
+                userProfile.isStaff = response.data.isStaff
                 saveDataLocal(
                     this.state.username,
                     this.state.password,
                     response.token,
                     response.data.isAdmin,
-                    response.data.isTeacher
+                    response.data.isTeacher,
+                    response.data.isStaff
                 )
                 this.setState({
                     goToScreen: 'Home'

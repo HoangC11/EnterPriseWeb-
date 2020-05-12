@@ -44,23 +44,25 @@ class LoginAdmin extends React.Component {
         console.log('rrrrr: ', response)
         if (response !== undefined) {
             if (response.statusCode === 1) {
-                if(!response.data.isAdmin){
+                if(!response.data.isAdmin && !response.data.isStaff){
                     alert('Bạn không có quyền đăng nhập vào hệ thống')
                 }else{
                     userProfile.username = this.state.username
                     userProfile.password = this.state.password
                     userProfile.token = response.token
-                    userProfile.rule = 2
                     userProfile.isTeacher = response.data.isTeacher
+                    userProfile.isAdmin = response.data.isAdmin
+                    userProfile.isStaff = response.data.isStaff
                     saveDataLocal(
                         this.state.username,
                         this.state.password,
                         response.token,
-                        2,
-                        response.data.isTeacher
+                        response.data.isAdmin,
+                        response.data.isTeacher,
+                        response.data.isStaff
                     )
                 this.setState({
-                    goToScreen: 'HomeAdmin'
+                    goToScreen: response.data.isStaff ? 'HomeAdmin' : 'ManagerAllUser'
                 })
                 }
                 
@@ -98,6 +100,10 @@ class LoginAdmin extends React.Component {
                         }
                         {this.state.goToScreen === 'RegisterAccount' &&
                             <Redirect to={{ pathname: 'RegisterAccount' }} />
+                        }
+                        {this.state.goToScreen === 'ManagerAllUser' &&
+                            <Redirect to={{ pathname: 'ManagementAllUser' }} />
+                            
                         }
                     </div>
                 </div>

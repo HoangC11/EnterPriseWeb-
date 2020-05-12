@@ -80,6 +80,7 @@ class HomeAdmin extends Component {
     }
     async getAllClass(){
         const response = await getAllClasses()
+        console.log('oooooooooooooo: ', response)
         if (response !== undefined) {
             if (response.statusCode === 1) {
                 this.setState({

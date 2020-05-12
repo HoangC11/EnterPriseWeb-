@@ -227,3 +227,6 @@
     font-size: 20px;
     font-weight: bold;
 }
+.headerManageUser {
+    flex-direction: row;
+}
