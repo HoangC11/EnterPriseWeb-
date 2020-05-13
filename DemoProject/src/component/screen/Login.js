@@ -63,6 +63,7 @@ class Login extends React.Component {
                 saveDataLocal(
                     this.state.username,
                     this.state.password,
+                    this.state.token,
                     response.token,
                     response.data.isAdmin,
                     response.data.isTeacher,

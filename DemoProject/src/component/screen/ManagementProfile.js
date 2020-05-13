@@ -101,7 +101,7 @@ class ManagementProfile extends React.Component {
 
    }
    async onRemoveUser(){
-        const response = await managerRemoveUser(this.state.user._id)
+        const response = await managerRemoveUser(this.state.user.id)
         if(response !== undefined){
             if(response.data !== undefined && response.data._id !== undefined ){
                 alert('Delete Success')

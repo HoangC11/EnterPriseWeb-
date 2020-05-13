@@ -153,7 +153,6 @@ class PeopleScreen extends Component {
             }
         }else{
             const response = await staffDeleteUserByClass(this.props.idClass, user._id)
-            console.log('wwwwwww: ', response)
             if(response !== undefined){
                 alert(response.message)
                 // this.getAllUser()
