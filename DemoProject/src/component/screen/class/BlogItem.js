@@ -77,20 +77,26 @@ class BlogItem extends Component {
                     <a className='textContentBlogItem'>{item.text}</a>
                     {item.image !== undefined && item.image !== '' &&
                         (
-                            <div><a href={'https://drive.google.com/uc?id=' + item.image} target='_blank' download>Download the attached file</a></div>
+                            <div>
+                                <a href={'https://drive.google.com/uc?id=' + item.image} target='_blank' download>Download the attached file</a>
+                                <div>
+                                {/* <img src={'https://drive.google.com/uc?id=' + item.image} style={{width: 200, height: 200}}/> */}
+                                </div>
+                                </div>
                         )
                     }
                     <div className='viewLineTextContentBlogItem' />
                     <a className='textTitleCommentBlogItem'>Class comment</a>
                     {item.comments.length > 0 && !this.state.showComment &&
                         <p onClick={() => { this.changeShowComments(true) }}>Show {item.comments.length} comment</p>
+                        
                     }
                     {item.comments.length > 0 && this.state.showComment &&
                         <div className='viewListCommentBlog'>
                             {item.comments.map(item => {
                                 return (
                                     <div className='viewItemCommentBlog'>
-                                    <a onClick={() => {this.onDeleteComment(item._id)}} className='deleteComment'>Delete</a>
+                                    <a onClick={() => {this.onDeleteComment(item._id)}} className='deleteComment'>X</a>
                                         <div className='textAuthor'>{item.author}   </div>
                                         
                                         <div>{item.text}</div>

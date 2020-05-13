@@ -19,10 +19,9 @@ export function getDataLocal(){
     userProfile.username = username
     userProfile.password = password
     userProfile.token = token
-    userProfile.rule = isAdmin 
-    userProfile.isTeacher = isTeacher
-    userProfile.isAdmin = isAdmin
-    userProfile.isStaff = isStaff
+    userProfile.isTeacher = (isTeacher === 'true') ? true : false
+    userProfile.isAdmin = (isAdmin === 'true') ? true : false
+    userProfile.isStaff = (isStaff === 'true') ? true : false
 }
 
 export function saveDataLocal(username, password, token, isAdmin, isTeacher, isStaff){

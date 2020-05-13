@@ -7,13 +7,14 @@ import {
     Link,
     Redirect,
 } from 'react-router-dom'
-
+import {removeDatalocal} from './config/settings'
 
 class ForgotPassword extends React.Component {
     state = {
       goToScreen: '',
         newPassword: '',
         confirmPassword: '',
+        goToScreen:'',
     }
     onChangeText(event, type){
         if(type === 1){
@@ -24,6 +25,43 @@ class ForgotPassword extends React.Component {
             this.setState({
                 confirmPassword: event.target.value
             })
+        }
+    }
+    async apiResetPassWord(token, newPassword, newPasswordConfirm){
+      const api = 'http://classroom1234.herokuapp.com/users/reset/' + token
+      const jsonBody = {
+        newPassword: newPassword,
+        passwordCfm: newPasswordConfirm
+      }
+
+      return await fetch(api, {
+        method: 'POST',
+        headers: new Headers({
+            'Authorization': userProfile.token,
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(jsonBody)
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: 'Connect server failed'
+            }
+        })
+    }
+    async onResetPassword () {
+        const token = this.props.match.params.token
+        const response = await this.apiResetPassWord(token, this.state.newPassword, this.state.confirmPassword)
+        if(response !== undefined){
+          console.log('resssssss: ', response)
+          if(response.statusCode === 1 ){
+            alert('Change password success')
+          }else{
+            alert('Change password failed')
+          }
+        }else{
+          alert('Change password failed')
         }
     }
   render() {
@@ -70,8 +108,9 @@ class ForgotPassword extends React.Component {
                       <div className="col-xs-12">
                         <br />
                         {/* <button  className="btn btn-lg btn-success" type="submit"><i className="glyphicon glyphicon-ok-sign"> Save</button> */}
-                        <a className="btn btn-lg btn-success" onClick={() => {this.saveProfile()}}>Save</a>
-                        
+                        <a className="btn btn-lg btn-success" onClick={() => {this.onResetPassword()}}>Save</a>
+                        <a className="btn btn-lg btn-success" onClick={() => 
+                this.setState({goToScreen: 'LoginAdmin' }, () => {removeDatalocal()})}>Back</a>
                       </div>
                     </div>
                   </form>
@@ -87,6 +126,9 @@ class ForgotPassword extends React.Component {
             </div>{/*/tab-content*/}
           </div>{/*/col-9*/}
         </div>{/*/row*/}
+        {this.state.goToScreen === 'Login' &&
+                        <Redirect to={{ pathname: '/' }} />
+                    }
       </div>
       
     );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {adminGetAllUser, adminAddTeacher, adminAddStudent} from '../../api/apiAdmin'
+import {adminGetAllUser, adminAddTeacher, adminAddStudent, staffDeleteUserByClass} from '../../api/apiAdmin'
 import '../../css/ClassDetailCSS.css'
 import { userProfile } from '../config/settings';
 class PeopleScreen extends Component {
@@ -141,19 +141,26 @@ class PeopleScreen extends Component {
         }
     }
 
-    onDeleteUser(user, type){
+    async onDeleteUser(user, type){
         // console.log('mmmmmmmmmmmmm: ', user)
         if(type === 0){
-            this.setState({
-                visibleTeacher: false
-            })
+            const response = await staffDeleteUserByClass(this.props.idClass, user._id)
+            if(response !== undefined){
+                alert(response.message)
+                this.props.getAllMember()
+            }else{
+                alert('Delete teacher failed')
+            }
         }else{
-            let data = this.state.dataStudent.filter((item) => {
-                return item._id !== user._id
-            })
-            this.setState({
-                dataStudent: data
-            })
+            const response = await staffDeleteUserByClass(this.props.idClass, user._id)
+            console.log('wwwwwww: ', response)
+            if(response !== undefined){
+                alert(response.message)
+                // this.getAllUser()
+                this.props.getAllMember()
+            }else{
+                alert('Delete student failed')
+            }
         }
     }
     onChangeSelected(e){

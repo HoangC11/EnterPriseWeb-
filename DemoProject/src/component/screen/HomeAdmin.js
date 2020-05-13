@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getClasses, getAllClasses } from '../api/apiUser'
-import { createClass } from '../api/apiAdmin'
+import { createClass, staffDeleteClassById } from '../api/apiAdmin'
 import ItemBlog from './blog/ItemBlog'
 import '../css/HomeAdminCSS.css'
 import {userProfile, getDataLocal,removeDatalocal} from './config/settings'
@@ -92,7 +92,7 @@ class HomeAdmin extends Component {
                                     <tr className='TableTrItem'>
                                         {response.data.map((value, i) => {
                                             if (i === index || i === index + 1 || i === index + 2) {
-                                                return (<td className='TableTdItem'><ItemBlog item={value} /></td>)
+                                                return (<td className='TableTdItem'><ItemBlog getAllClass={() => {this.getAllClass()}} item={value} /></td>)
                                             } else {
                                                 return null
                                             }
@@ -259,7 +259,7 @@ class HomeAdmin extends Component {
                 }
                 <div className='header' >
                     {/* <img src='https://image.flaticon.com/icons/svg/813/813670.svg' className='iconHome' /> */}
-                    <a className='titleScreens'>HOME ADMIN</a>
+                    <a className='titleScreens'>HOME STAFF</a>
                     <div className="profile dropdown">
                         <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Profile

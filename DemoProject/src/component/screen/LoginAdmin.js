@@ -19,8 +19,10 @@ class LoginAdmin extends React.Component {
     }
     async componentDidMount(){
         if(localStorage.getItem('token') !== undefined){
-            var rule = localStorage.getItem('isAdmin')
-            if(rule == 2){
+            var isAdmin = localStorage.getItem('isAdmin')
+            var isStaff = localStorage.getItem('isStaff')
+            console.log('xxxxxxxxxxxxxx: ', isAdmin + ' - - - ' + isStaff)
+            if(isAdmin === 'true' || isStaff === 'true'){
                 await  getDataLocal()
                 this.setState({
                     goToScreen: 'HomeAdmin'

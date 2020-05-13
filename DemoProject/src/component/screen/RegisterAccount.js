@@ -46,15 +46,15 @@ class RegisterAccount extends Component {
 
     onClickRegister = async () => {
         if (this.state.username.trim() === '') {
-            alert('Không được để trống Username')
+            alert('Username must not be blank')
         } else if (this.state.password.trim() === '') {
-            alert('Không được để trống Password')
+            alert('Password must not be blank')
         } else if (this.state.passwordCfm.trim() === '') {
-            alert('Không được để trống Password Confirm')
+            alert('Password Confirm must not be blank')
         } else if (this.state.email.trim() === '') {
-            alert('Không được để trống Email')
+            alert('Email must not be blank')
         } else if (this.state.password.trim() !== this.state.passwordCfm.trim()) {
-            alert('Password và Password Confirm không giống nhau')
+            alert('Password and Password Confirm is not the same')
         } else {
             const response = await registerAccountApi(
                 this.state.username.trim(),
@@ -66,7 +66,7 @@ class RegisterAccount extends Component {
             console.log('ressponse: ', response)
             if (response !== undefined) {
                 if (response.statusCode === 1) {
-                    alert('Đăng kí thành công')
+                    alert('Register success!')
                     this.setState({
                         username: '',
                         password: '',
@@ -98,7 +98,7 @@ class RegisterAccount extends Component {
                     alert(string)
                 }
             }else{
-                alert('Không thể kết nối tới server')
+                alert('Connect server failed')
             }
         }
     }

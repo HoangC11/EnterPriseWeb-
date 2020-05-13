@@ -42,6 +42,7 @@ class ClassDetail extends Component {
         }else{
             response = await getAllMemberInClass(this.props.match.params.id)
         }
+        console.log('iiiiiiiii: ', undefined)
         if (response !== undefined) {
             if (response.statusCode === 1) {
                 this.setState({
@@ -71,12 +72,12 @@ class ClassDetail extends Component {
         const idClass = this.props.match.params.id
         return (
             <div className='header'>
-                {!userProfile.isAdmin  && <a onClick={() => { this.onChangeSelectedPage(true) }} className='headerTitle' style={{ color: this.state.selectedPage ? 'orange' : null }}>Blog</a>}
+                {(!userProfile.isAdmin && !userProfile.isStaff)  && <a onClick={() => { this.onChangeSelectedPage(true) }} className='headerTitle' style={{ color: this.state.selectedPage ? 'orange' : null }}>Blog</a>}
                 <a onClick={() => { this.onChangeSelectedPage(false) }} className='headerTitle1' style={{ color: userProfile.isAdmin ? 'orange' : ( !this.state.selectedPage ? 'orange' : null ) }}>People</a>
                 <button onClick={() => this.setState({
-                        goToScreen: !userProfile.isAdmin ? 'HomeUser' : 'HomeAdmin'})} className="headerBack" type="back"> Back</button>
+                        goToScreen: (!userProfile.isAdmin && !userProfile.isStaff) ? 'HomeUser' : 'HomeAdmin'})} className="headerBack" type="back"> Back</button>
                 <div className='headerLine'></div>
-                {userProfile.isAdmin ? 
+                {(userProfile.isAdmin|| userProfile.isStaff)? 
                 (
                     <PeopleScreen dataTeacher={this.state.dataTeacher} dataStudents={this.state.dataStudents} idClass={this.props.match.params.id} getAllMember={() => {this.getAllMember()}}/>
                 )   

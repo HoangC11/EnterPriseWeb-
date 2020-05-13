@@ -9,6 +9,8 @@ import Profile from './component/screen/Profile'
 import ForgotPassword from './component/screen/ForgotPassword'
 import Dashboard from './component/screen/Dashboard'
 import ManagementAllUser from './component/screen/ManagementAllUser'
+import ManagementAddUserToSystem from './component/screen/ManagementAddUserToSystem'
+import StaffManagementAllUser from './component/screen/StaffManagementAllUser'
 // import Chat from './component/screen/Chat'
 import {
   BrowserRouter as Router,
@@ -47,7 +49,7 @@ class App extends React.Component {
             {/* <Profile /> */}
           </Route>
 
-          <Route path="/ForgotPassword" component={ForgotPassword}>
+          <Route path="/users/reset/:token" component={ForgotPassword}>
             {/* <Profile /> */}
           </Route>
 
@@ -58,8 +60,13 @@ class App extends React.Component {
             {/* <Profile /> */}
           </Route>
           
-         
-
+          <Route path="/ManagementAddUserToSystem" component={ManagementAddUserToSystem}>
+            {/* <Profile /> */}
+          </Route>
+          <Route path="/StaffManagementAllUser" component={StaffManagementAllUser}>
+            {/* <Profile /> */}
+          </Route>
+          
         </Router>
       </div>
     )

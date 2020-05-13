@@ -6,14 +6,14 @@
 .headerTitle {
     font-size: 16;
     font-weight: bold;
-    color: lightgray;
+    color: mediumblue;
     margin-left: 450px;
     margin-right: 20px;
 }
 .headerTitle1 {
     font-size: 16;
     font-weight: bold;
-    color: lightgray;
+    color: mediumblue;
     margin-left: 20px;
     /* margin-right: 20px; */
 }
@@ -24,7 +24,7 @@
     margin-left: 10px;
     margin-right: 10px;
     /* thứ tự margin : x - y - z - t = top - left - bottom - right*/
-    background-color: silver;
+    background-color: mediumblue;
 }
 .viewContentPeople {
     width: 100%;
@@ -81,6 +81,7 @@
 .viewPostBlog{
     width: 60%;
     background-color: rgba(230, 222, 222, 0.781);
+    /* background-color: mediumblue; */
     margin-left: auto;
     margin-right: auto;
     border-width: 10px;
@@ -122,6 +123,7 @@
 .viewBlogItem{
     width: 60%;
     background-color: rgba(230, 222, 222, 0.781);
+    /* background-color: mediumblue; */
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
@@ -189,6 +191,7 @@
     width: 60%;
     height: 40px;
     background-color: rgb(205, 208, 221);
+    /* background-color: mediumblue; */
     text-align: start;
     border-width: 0px;
     border-radius: 10px;

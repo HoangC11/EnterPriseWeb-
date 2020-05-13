@@ -9,7 +9,8 @@
     margin-right: 10px;
     border: 1px solid silver;
     box-shadow: 0 2px 3px #ccc;
-    background-color: silver;
+    /* background-color: silver; */
+    background-color: tan;
 }
 .viewTitleBlog {
     vertical-align: top;    

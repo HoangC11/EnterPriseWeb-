@@ -8,7 +8,9 @@ import {
     Link,
     Redirect,
 } from 'react-router-dom'
-import {managerGetAllUser, managerGetUserProfile, managerGetProfileById} from '../api/apiAdmin'
+import {removeDatalocal} from './config/settings'
+
+import {managerGetAllUser, managerGetUserProfile, managerGetProfileById, managerGetProfileAllUser} from '../api/apiAdmin'
 import ManagementProfile from './ManagementProfile'
 export default class ManagementAllUser extends React.Component{
     constructor(props){
@@ -17,7 +19,11 @@ export default class ManagementAllUser extends React.Component{
             dataAllUser: [],
             renderData: [],
             selectedUser: undefined,
-            profileUserSelected: undefined
+            profileUserSelected: undefined,
+            profileUserSelected: undefined,
+            dataProfileAllUser: [],
+            goToScreen: '',
+
         }
     }
     onChangeSelectedUser(){
@@ -27,21 +33,27 @@ export default class ManagementAllUser extends React.Component{
     }
 
     async getProfileByUser(id){
-        
-        const response = await managerGetProfileById(id)
-        console.log('5555555555555: ' , response)
-        if(response !== undefined){
-            if(response.data !== undefined && response.data._id !== undefined){
-                this.setState({
-                    profileUserSelected: response.data
-                })
-            }
-        }
+        let profile = this.state.dataProfileAllUser.filter((item) => {
+            return item.user._id === id
+        })
+        console.log('444: ', profile)
+        this.setState({
+            profileUserSelected: profile.length > 0 ? profile[0] : undefined
+        })
+        // const response = await managerGetProfileById(id)
+        // if(response !== undefined){
+        //     if(response.data !== undefined && response.data._id !== undefined){
+        //         this.setState({
+        //             profileUserSelected: response.data
+        //         })
+        //     }
+        // }
     }
     onSelectedUser(item){
         this.setState({
             selectedUser: item
         }, () => {
+            // managerGetUserProfile(item.id)
             this.getProfileByUser(item.id)
         })
     }
@@ -65,11 +77,23 @@ export default class ManagementAllUser extends React.Component{
             }
         }
     }
+    async getProfileAllUser(){
+        const response = await managerGetProfileAllUser()
+        console.log('333333333: ', response)
+        if(response !== undefined){
+            if(response.data !== undefined && response.data.length > 0){
+                this.setState({
+                    dataProfileAllUser: response.data
+                })
+            }
+        }
+    }
     async componentDidMount(){
         if(userProfile.token === undefined || userProfile.token === ''){
             await getDataLocal()
         }
         this.getAllUser()   
+        this.getProfileAllUser()
     }
 
     async apiChangePassword(oldPass, newPass, confirmPass){
@@ -120,13 +144,18 @@ export default class ManagementAllUser extends React.Component{
             <div>
                 <div className='headerManageUser'>
                 <h1>Management User</h1>
-                <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button>
+                <button onClick={() => {this.onChangePassword()}} >Change password</button>
+                <button onClick={() => this.setState({
+                                    goToScreen: 'ManagementAddUserToSystem' })}>Add User</button>
+                <button onClick={() => 
+                this.setState({goToScreen: 'LoginAdmin' }, () => {removeDatalocal()})}>Log out</button>
                 </div>
                 {this.state.selectedUser !== undefined && 
                     (
                         <ManagementProfile 
                         user={this.state.selectedUser} 
                         getAllUser={() => {this.getAllUser()}} 
+                        profileUserSelected={this.state.profileUserSelected}
                         onChangeSelectedUser={() => {this.onChangeSelectedUser()}}
                         profileUserSelected={this.state.profileUserSelected}
                         />
@@ -136,6 +165,12 @@ export default class ManagementAllUser extends React.Component{
                     {this.state.renderData}
                 </ul>
 
+                {this.state.goToScreen === 'ManagementAddUserToSystem' &&
+                        <Redirect to={{ pathname: '/ManagementAddUserToSystem' }} />
+                    }
+                    {this.state.goToScreen === 'LoginAdmin' &&
+                        <Redirect to={{ pathname: 'LoginAdmin' }} />
+                    }
             </div>
         )
     }

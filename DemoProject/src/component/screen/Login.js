@@ -14,8 +14,8 @@ import { userProfile, saveDataLocal, getDataLocal } from './config/settings'
 import {forGotPassword} from '../api/apiUser'
 class Login extends React.Component {
     state = {
-        username: 'student1',
-        password: 'student1',
+        username: 'nguyenthib',
+        password: '123456789',
         goToScreen: '',
         emailForgot: ''
     }
@@ -31,10 +31,11 @@ class Login extends React.Component {
     }
     async componentDidMount(){
         if(localStorage.getItem('token') !== undefined && localStorage.getItem('token') !== null){
-            var rule = localStorage.getItem('isAdmin')
-            console.log('vbvvvvvv: ', rule)
-            if(rule == 2){
-
+            var isAdmin = localStorage.getItem('isAdmin')
+            var isStaff = localStorage.getItem('isStaff')
+            console.log('uuuu: ', isAdmin)
+            console.log('yyy: ', isStaff)
+            if(isAdmin || isStaff  ){
             }else{
                 await getDataLocal()
                  this.setState({
@@ -49,6 +50,7 @@ class Login extends React.Component {
         console.log('rrrrr: ', response)
         if (response !== undefined) {
             if (response.statusCode === 1) {
+                
                 if(response.data.isAdmin || response.data.isStaff){
                     alert('Bạn không có quyền truy cập vào hệ thống này')
                 }else{

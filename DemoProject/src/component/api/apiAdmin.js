@@ -138,6 +138,23 @@ export async function managerGetAllUser() {
         })
 }
 
+export async function managerGetProfileAllUser() {
+    const api = API + 'admin/profile/all/'
+    return await fetch(api, {
+        method: 'GET',
+        headers: new Headers({
+            'Authorization': userProfile.token
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
 export async function managerGetProfileById(id) {
     const api = API + 'admin/profile/' + id
     return await fetch(api, {
@@ -237,6 +254,61 @@ export async function managerGetUserProfile(id) {
     const api = API + 'admin/profile/' + id
     return await fetch(api, {
         method: 'GET',
+        headers: new Headers({
+            'Authorization': userProfile.token
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
+
+// staff
+
+export async function staffGetAllUser() {
+    const api = API + 'staff/user/all'
+    return await fetch(api, {
+        method: 'GET',
+        headers: new Headers({
+            'Authorization': userProfile.token
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
+
+export async function staffDeleteClassById(id) {
+    const api = API + 'staff/class/' + id
+    return await fetch(api, {
+        method: 'DELETE',
+        headers: new Headers({
+            'Authorization': userProfile.token
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
+export async function staffDeleteUserByClass(idClass, idUser) {
+    const api = API + 'staff/class/' + idClass + '/remove/' + idUser
+    return await fetch(api, {
+        method: 'POST',
         headers: new Headers({
             'Authorization': userProfile.token
         }),

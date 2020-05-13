@@ -83,6 +83,7 @@ class BlogScreen extends Component {
     }
 
     render() {
+        console.log('xcvbnbn:' ,this.props.dataListBlog)
         const { idClass } = this.props
         return (
             <div className='header'>
@@ -103,7 +104,6 @@ class BlogScreen extends Component {
                         <div className='viewPostInput'>
                             <textarea placeholder='Enter the content of the post' value={this.state.textPost} className='stylePostInput' onChange={event => this.onChangeTextPost(event.target.value)}></textarea>
                             {/* <div className='divIconSendPost'>
-                                
                             </div> */}
                             <img
                                 onClick={() => { this.onClickSendPostBlog(this.state.textPost, this.state.idFilePost, idClass) }}

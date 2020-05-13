@@ -117,9 +117,12 @@ class ManagementProfile extends React.Component {
    async onSaveNewDate(){
         if(this.state.defaultRule === 'Student'){
             if(this.state.rule === 'Teacher'){
-                const response = await managerChangeRuleTeacher(this.state.user._id)
+                const response = await managerChangeRuleTeacher(this.state.user.id)
                 if(response !== undefined){
-                    if(response.statusCode === 1 ){
+                    if(response.data !== undefined && response.data.name !== undefined ){
+                        this.setState({
+                          defaultRule: 'Teacher'
+                        })
                         alert('Change role Student success')
                         this.props.getAllUser()
                     }
@@ -127,9 +130,12 @@ class ManagementProfile extends React.Component {
             }
         }else if(this.state.defaultRule === 'Teacher'){
             if(this.state.rule === 'Staff'){
-                const response = await managerChangeRuleStaff(this.state.user._id)
+                const response = await managerChangeRuleStaff(this.state.user.id)
                 if(response !== undefined){
-                    if(response.statusCode === 1 ){
+                    if(response.data !== undefined && response.data._id !== undefined){
+                      this.setState({
+                        defaultRule: 'Staff'
+                      })
                         alert('Change role Teacher success')
                         this.props.getAllUser()
                     }
@@ -137,9 +143,12 @@ class ManagementProfile extends React.Component {
             }
         }else if(this.state.defaultRule === 'Staff'){
             if(this.state.rule ==='Teacher'){
-                const response = await managerChangeRuleStaff(this.state.user._id)
+                const response = await managerChangeRuleTeacher(this.state.user.id)
                 if(response !== undefined){
-                    if(response.statusCode === 1 ){
+                    if(response.data !== undefined && response.data.name!== undefined){
+                      this.setState({
+                        defaultRule: 'Teacher'
+                      })
                         alert('Change role Staff success')
                         this.props.getAllUser()
                     }
@@ -149,6 +158,7 @@ class ManagementProfile extends React.Component {
    }
   render() {
       let {user} = this.state
+      let {profileUserSelected} = this.props
     return (
       <div>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
@@ -173,38 +183,44 @@ class ManagementProfile extends React.Component {
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="first_name"><h4>Name</h4></label>
-                        <label  className="form-control"  >{this.state.name}</label>
+                        <label  className="form-control"  >{profileUserSelected !== undefined ? profileUserSelected.user.name : this.state.name}</label>
                       </div>
                     </div>
                     <div className="form-group">
                       <div className="col-xs-6">
-                        <label htmlFor="mobile"><h4>Gmail</h4></label>
-                        <label  className="form-control"  >{this.state.gmail}</label>
+                        <label htmlFor="mobile"><h4>Full name</h4></label>
+                        <label  className="form-control"  >{profileUserSelected !== undefined ? profileUserSelected.fullname : null}</label>
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <div className="col-xs-6">
+                        <label htmlFor="mobile"><h4>Code</h4></label>
+                        <label  className="form-control"  >{profileUserSelected !== undefined ? profileUserSelected.maso : null}</label>
                       </div>
                     </div>
                     
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="first_name"><h4>Facebook</h4></label>
-                        <label  className="form-control"  >{this.state.name}</label>
+                        <label  className="form-control"  >{profileUserSelected !== undefined ? profileUserSelected.social.facebook : null}</label>
                       </div>
                     </div>
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="first_name"><h4>Zalo</h4></label>
-                        <label  className="form-control"  >{this.state.name}</label>
+                        <label  className="form-control"  >{profileUserSelected !== undefined ? profileUserSelected.social.zalo : null}</label>
                       </div>
                     </div>
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="first_name"><h4>Twitter</h4></label>
-                        <label  className="form-control"  >{this.state.name}</label>
+                        <label  className="form-control"  >{profileUserSelected !== undefined ? profileUserSelected.social.twitter : null}</label>
                       </div>
                     </div>
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="first_name"><h4>Instagram</h4></label>
-                        <label  className="form-control"  >{this.state.name}</label>
+                        <label  className="form-control"  >{profileUserSelected !== undefined ? profileUserSelected.social.instagram : null}</label>
                       </div>
                     </div>
                     <div className="form-group">

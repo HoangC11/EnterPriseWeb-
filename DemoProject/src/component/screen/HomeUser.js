@@ -258,7 +258,7 @@ class HomeUser extends Component {
                     <a className='hello'>Hello {userProfile.username }!
                     {/* {this.state.profileData !== undefined ? this.state.profileData.fullname : userProfile.username} */}
                     </a>
-                    <a className='titleScreen'>Home</a>
+                    <a className='titleScreen'>Home User</a>
 
                     {/* <div className="modal-1" tabindex="1111" role="dialog">
                         <div className="modal-dialog" role="document">
