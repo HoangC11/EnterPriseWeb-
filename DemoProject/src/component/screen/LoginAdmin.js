@@ -22,12 +22,17 @@ class LoginAdmin extends React.Component {
             var isAdmin = localStorage.getItem('isAdmin')
             var isStaff = localStorage.getItem('isStaff')
             console.log('xxxxxxxxxxxxxx: ', isAdmin + ' - - - ' + isStaff)
-            if(isAdmin === 'true' || isStaff === 'true'){
+            if(isStaff === 'true'){
                 await  getDataLocal()
                 this.setState({
                     goToScreen: 'HomeAdmin'
                 })
-            }
+            }else if(isAdmin === 'true'){
+				await  getDataLocal()
+				this.setState({
+                    goToScreen: 'ManagerAllUser'
+                })
+			}
            
         }
     }

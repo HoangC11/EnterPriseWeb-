@@ -35,7 +35,7 @@ class Login extends React.Component {
             var isStaff = localStorage.getItem('isStaff')
             console.log('uuuu: ', isAdmin)
             console.log('yyy: ', isStaff)
-            if(isAdmin || isStaff  ){
+            if(isAdmin === 'true' || isStaff === 'true'  ){
             }else{
                 await getDataLocal()
                  this.setState({
@@ -63,7 +63,6 @@ class Login extends React.Component {
                 saveDataLocal(
                     this.state.username,
                     this.state.password,
-                    this.state.token,
                     response.token,
                     response.data.isAdmin,
                     response.data.isTeacher,
