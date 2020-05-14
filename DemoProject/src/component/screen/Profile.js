@@ -207,7 +207,7 @@ class Profile extends React.Component {
                     </div>
                     <div className="form-group">
                       <div className="col-xs-6">
-                        <label htmlFor="mobile"><h4>MaSo</h4></label>
+                        <label htmlFor="mobile"><h4>Student ID</h4></label>
                         <input onChange={(text) => {this.onChangeText(text, 2)}} value={this.state.maso} type="text" className="form-control" name="mobile" id="mobile" placeholder="16392" title="enter your mobile number if any." />
                       </div>
                     </div>
