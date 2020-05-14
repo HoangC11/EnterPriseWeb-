@@ -64,7 +64,7 @@ class HomeAdmin extends Component {
             .catch(err => {
                 return {
                     statusCode: -1,
-                    message: 'Unable to connect to the server'
+                    message: 'Connect server failed!'
                 }
             })
     }
@@ -130,7 +130,7 @@ class HomeAdmin extends Component {
             .catch(err => {
                 return {
                     statusCode: -1,
-                    message: 'Unable to connect to the server'
+                    message: 'Connect server failed!'
                 }
             })
     }
@@ -149,7 +149,7 @@ class HomeAdmin extends Component {
                 alert(response.message)
             }
         }else{
-            alert('Unable to connect to the server')
+            alert('Connect server failed!')
         }
     }
 
@@ -267,11 +267,13 @@ class HomeAdmin extends Component {
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a className="dropdown-item">Account: {profileData !== undefined ? profileData.user.name : ''}</a>
             <a className="dropdown-item">Name: {profileData !== undefined ? profileData.fullname : ''}</a>
-                            <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a>
+                            {/* <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a> */}
             <a className="dropdown-item">Role: Staff</a>
                             <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button>
                             <button onClick={() => this.setState({
                         goToScreen: 'Profile'})} className="dropdown-item btn btn-primary">Update Profile</button>
+                         <button onClick={() => this.setState({
+                                    goToScreen: 'StaffManagementAllUser' })} className="dropdown-item btn btn-primary">Manage All User</button>
                             <button className="dropdown-item btn btn-primary" onClick={() => {
                                 removeDatalocal()
                                 this.setState({
@@ -299,6 +301,9 @@ class HomeAdmin extends Component {
                         }
                         {this.state.goToScreen === 'Profile' &&
                         <Redirect to={{ pathname: 'Profile' }} />
+                        }
+                        {this.state.goToScreen === 'StaffManagementAllUser' &&
+                        <Redirect to={{ pathname: 'StaffManagementAllUser' }} />
                         }
 
                 </div>

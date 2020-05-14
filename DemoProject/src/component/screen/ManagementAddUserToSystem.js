@@ -68,7 +68,7 @@ class ManagementAddUserToSystem extends React.Component {
             .catch(err => {
                 return {
                     statusCode: -1,
-                    message: 'Không thể kết nối tới server'
+                    message: 'Connect server failed!'
                 }
             })
     }

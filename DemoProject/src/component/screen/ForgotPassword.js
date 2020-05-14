@@ -110,7 +110,7 @@ class ForgotPassword extends React.Component {
                         {/* <button  className="btn btn-lg btn-success" type="submit"><i className="glyphicon glyphicon-ok-sign"> Save</button> */}
                         <a className="btn btn-lg btn-success" onClick={() => {this.onResetPassword()}}>Save</a>
                         <a className="btn btn-lg btn-success" onClick={() => 
-                this.setState({goToScreen: 'LoginAdmin' }, () => {removeDatalocal()})}>Back</a>
+                this.setState({goToScreen: 'Login' }, () => {removeDatalocal()})}>Back</a>
                       </div>
                     </div>
                   </form>

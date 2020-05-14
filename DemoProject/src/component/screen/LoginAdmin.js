@@ -52,7 +52,7 @@ class LoginAdmin extends React.Component {
         if (response !== undefined) {
             if (response.statusCode === 1) {
                 if(!response.data.isAdmin && !response.data.isStaff){
-                    alert('Bạn không có quyền đăng nhập vào hệ thống')
+                    alert('You do not access to this system!')
                 }else{
                     userProfile.username = this.state.username
                     userProfile.password = this.state.password
@@ -74,17 +74,17 @@ class LoginAdmin extends React.Component {
                 }
                 
             } else {
-                alert('Đăng nhập không thành công')
+                alert('Login failed')
             }
         } else {
-            alert('Đăng nhập không thành công')
+            alert('Login failed')
         }
     }
         render() {
             return (
                 <div className='body' >
                     <div className='content'>
-                        <h1 className='title'>Đăng nhập</h1>
+                        <h1 className='title'>Login</h1>
                         <div className='divUsername'>
                             {/* <label>Username:
                             <input type='text' value={this.state.username} onChange={this.onChangeUsername}></input>
@@ -98,7 +98,7 @@ class LoginAdmin extends React.Component {
                             <div>Password: </div>
                             <div><input type='password' value={this.state.password} onChange={this.onChangePassword}></input></div>
                         </div>
-                        <div className='submit'><button type="submit" onClick={this.onClickLogin}>Đăng nhập</button></div>
+                        <div className='submit'><button type="submit" onClick={this.onClickLogin}>Login</button></div>
                         {/* {this.state.goToScreen === 'Home' &&
                             <Redirect to={{ pathname: 'Home' }} />
                         } */}

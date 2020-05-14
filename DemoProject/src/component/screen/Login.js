@@ -52,7 +52,7 @@ class Login extends React.Component {
             if (response.statusCode === 1) {
                 
                 if(response.data.isAdmin || response.data.isStaff){
-                    alert('Bạn không có quyền truy cập vào hệ thống này')
+                    alert('You do not access to this system!')
                 }else{
                     userProfile.username = this.state.username
                 userProfile.password = this.state.password
@@ -74,10 +74,10 @@ class Login extends React.Component {
                 }
                 
             } else {
-                alert('Đăng nhập không thành công')
+                alert('Login failed')
             }
         } else {
-            alert('Đăng nhập không thành công')
+            alert('Login failed')
         }
         // if (this.state.username === '1') {
         //     this.setState({
@@ -95,10 +95,10 @@ class Login extends React.Component {
         })
     }
     onClickForgotPassword = async() => {
-        var t = prompt("Nhập email của bạn", '');
+        var t = prompt("Enter your mail", '');
         if(t !== null){
             if(t === ''){
-                alert('Không được để trống email')
+                alert('Email do not empty')
             }else{
                 const response = await forGotPassword(t)
                 if (response !== undefined) {
@@ -108,7 +108,7 @@ class Login extends React.Component {
                         alert(response.message)
                     }
                 }else{
-                    alert('Không thể kết nối tới server')
+                    alert('Connect server failed!')
                 }
             }
         }
@@ -119,7 +119,7 @@ class Login extends React.Component {
         return (
             <div className='body-login' >
                 <div className='content'>
-                    <h1 className='title'>Đăng nhập</h1>
+                    <h1 className='title'>Login</h1>
                     
                     <div className='divUsername'>
                         {/* <label>Username:
@@ -136,8 +136,8 @@ class Login extends React.Component {
                     </div>
                     <div className='divForGotPass' onClick={this.onClickForgotPassword}>Forgot Password</div>
                    
-                    <div className='divButtonLogin'><button onClick={this.onClickLogin}>Đăng nhập</button></div>
-                    <div className='divButtonRegister'><button onClick={this.onClickRegister}>Đăng ký</button></div>
+                    <div className='divButtonLogin'><button onClick={this.onClickLogin}>Login</button></div>
+                    <div className='divButtonRegister'><button onClick={this.onClickRegister}>Register</button></div>
                     {this.state.goToScreen === 'Home' &&
                         <Redirect to={{ pathname: 'Home' }} />
                     }

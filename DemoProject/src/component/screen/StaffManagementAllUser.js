@@ -17,14 +17,15 @@ export default class StaffManagementAllUser extends React.Component{
             dataAllUser: [],
             renderData: [],
             selectedUser: undefined,
-            profileUserSelected: undefined
+            profileUserSelected: undefined,
+            goToScreen: '',
         }
     }  
     
     
     async getAllUser(){
         const response = await staffGetAllUser()
-        console.log('000000000: ', response)
+        // console.log('000000000: ', response)
         if(response !== undefined){
             if(response.data !== undefined && response.data.length > 0){
                 this.setState({
@@ -59,12 +60,17 @@ export default class StaffManagementAllUser extends React.Component{
             <div>
                 <div className='headerManageUser'>
                 <h1>Management All User</h1>
+                <button onClick={() => this.setState({
+                                    goToScreen: 'HomeAdmin' })}>Back</button>
                 
                 </div>
                 
                 <ul class="list-group">
                     {this.state.renderData}
                 </ul>
+                {this.state.goToScreen === 'HomeAdmin' &&
+                        <Redirect to={{ pathname: '/HomeAdmin' }} />
+                    }
 
             </div>
         )

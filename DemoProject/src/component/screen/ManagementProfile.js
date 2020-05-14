@@ -199,7 +199,7 @@ class ManagementProfile extends React.Component {
                       </div>
                     </div>
                     
-                    <div className="form-group">
+                    {/* <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="first_name"><h4>Facebook</h4></label>
                         <label  className="form-control"  >{profileUserSelected !== undefined ? profileUserSelected.social.facebook : null}</label>
@@ -222,7 +222,7 @@ class ManagementProfile extends React.Component {
                         <label htmlFor="first_name"><h4>Instagram</h4></label>
                         <label  className="form-control"  >{profileUserSelected !== undefined ? profileUserSelected.social.instagram : null}</label>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="email"><h4>Rule <button onClick={() => {this.changeTextRule()}} class="btn btn-outline-success my-2 my-sm-0" type="button"> > </button></h4></label>
