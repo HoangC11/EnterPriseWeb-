@@ -268,7 +268,7 @@ class HomeAdmin extends Component {
                         <a className="dropdown-item">Account: {profileData !== undefined ? profileData.user.name : ''}</a>
             <a className="dropdown-item">Name: {profileData !== undefined ? profileData.fullname : ''}</a>
                             <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a>
-            <a className="dropdown-item">Role: Admin</a>
+            <a className="dropdown-item">Role: Staff</a>
                             <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button>
                             <button onClick={() => this.setState({
                         goToScreen: 'Profile'})} className="dropdown-item btn btn-primary">Update Profile</button>
