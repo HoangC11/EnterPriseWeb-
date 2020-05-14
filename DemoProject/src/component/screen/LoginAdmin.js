@@ -50,7 +50,7 @@ class LoginAdmin extends React.Component {
         const response = await userLoginApi(this.state.username, this.state.password)
         console.log('rrrrr: ', response)
         if (response !== undefined) {
-            if (response.statusCode === 1) {
+            if (response.token !== undefined) {
                 if(!response.data.isAdmin && !response.data.isStaff){
                     alert('You do not access to this system!')
                 }else{
