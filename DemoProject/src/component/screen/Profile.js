@@ -38,16 +38,18 @@ class Profile extends React.Component {
     }
     async getProfile(){
         const response = await this.apiGetProfile()
+        console.log('hhhhhhhhhhh' , response)
         if(response !== undefined){
+          // console.log('qqqqqqqqqqq' , response.data.social.facebook)
             if(response.statusCode === 1){
                 this.setState({
                   name: response.data.user.name,
                     fullname: response.data.fullname,
                     maso: response.data.maso,
-                    facebook: response.data.social.facebook,
-                    zalo: response.data.social.zalo,
-                    twitter: response.data.social.twitter,
-                    instagram: response.data.social.instagram,
+                    // facebook: response.data.social.facebook,
+                    // zalo: response.data.social.zalo,
+                    // twitter: response.data.social.twitter,
+                    // instagram: response.data.social.instagram,
                 })
             }else{
                 // alert('123')
@@ -97,10 +99,10 @@ class Profile extends React.Component {
         let jsonBody = {
             fullname: fullname,
             maso: maso+'',
-            facebook: facebook,
-            zalo: zalo+'',
-            twitter: twitter,
-            instagram: instagram
+            // facebook: facebook,
+            // zalo: zalo+'',
+            // twitter: twitter,
+            // instagram: instagram
         }
         return await fetch(api, {
             method: 'POST',
@@ -127,10 +129,10 @@ class Profile extends React.Component {
             const response = await this.apiAddProfile(
                 this.state.fullname.trim(),
                 this.state.maso,
-                this.state.facebook.trim(),
-                this.state.zalo,
-                this.state.twitter.trim(),
-                this.state.instagram.trim(),
+                // this.state.facebook.trim(),
+                // this.state.zalo,
+                // this.state.twitter.trim(),
+                // this.state.instagram.trim(),
             )
             if(response !== undefined){
                 if(response.statusCode === 1){
@@ -209,7 +211,7 @@ class Profile extends React.Component {
                         <input onChange={(text) => {this.onChangeText(text, 2)}} value={this.state.maso} type="text" className="form-control" name="mobile" id="mobile" placeholder="16392" title="enter your mobile number if any." />
                       </div>
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="email"><h4>Facebook</h4></label>
                         <input onChange={(text) => {this.onChangeText(text, 3)}} value={this.state.facebook} type="text" className="form-control" name="email" id="email" placeholder="facebook.com/" title="enter your facebook." />
@@ -232,7 +234,7 @@ class Profile extends React.Component {
                         <label htmlFor="password2"><h4>Instagram</h4></label>
                         <input onChange={(text) => {this.onChangeText(text, 6)}} value={this.state.instagram} type="text" className="form-control" name="password2" id="password2" placeholder="instagram.com/" title="enter your Instagram." />
                       </div>
-                    </div>
+                    </div> */}
                     <div className="form-group">
                       <div className="col-xs-12">
                         <br />
