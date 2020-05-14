@@ -290,7 +290,7 @@ class HomeUser extends Component {
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a className="dropdown-item">Account: {profileData !== undefined ? profileData.user.name : ''}</a>
             <a className="dropdown-item">Name: {profileData !== undefined ? profileData.fullname : ''}</a>
-                            <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a>
+                            {/* <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a> */}
             <a className="dropdown-item">Role: {!userProfile.isTeacher? 'Sinh viên' : 'Giảng viên'}</a>
                             <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button>
                             <button onClick={() => this.setState({
