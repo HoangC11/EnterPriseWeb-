@@ -42,13 +42,13 @@ class ItemBlog extends Component {
                             src="https://image.flaticon.com/icons/svg/2155/2155227.svg" /> */}
                         
                         <span className='viewTextTitleBlog'>
-                            <div style={{}} className='textTitleBlog'>{item.name}</div>
-                            <div className='textTitleTeacher'>{item.teacher === undefined ? null : item.teacher.name}</div>
+                            <div style={{}} className='textTitleBlog'>Class: {item.name}</div>
+                            <div className='textTitleTeacher'>Teacher: {item.teacher === undefined ? 'No teachers in class' : item.teacher.name}</div>
                         </span>
 
                     </div>
                     {/* <div className='viewLine'></div> */}
-                    <div className='colorDescripption'><label className='textDescription'>Giới thiệu: </label>{item.description}</div>
+                    <div className='colorDescripption'><label className='textDescription'>Description: </label>{item.description}</div>
                 
             </Link>
             </div>

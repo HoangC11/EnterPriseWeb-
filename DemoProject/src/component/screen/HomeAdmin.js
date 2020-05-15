@@ -259,7 +259,7 @@ class HomeAdmin extends Component {
                 }
                 <div className='header' >
                     {/* <img src='https://image.flaticon.com/icons/svg/813/813670.svg' className='iconHome' /> */}
-                    <a className='titleScreens'>HOME STAFF</a>
+                    <a className='titleScreen'>HOME STAFF</a>
                     <div className="profile dropdown">
                         <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Profile
@@ -269,19 +269,41 @@ class HomeAdmin extends Component {
             <a className="dropdown-item">Name: {profileData !== undefined ? profileData.fullname : ''}</a>
                             {/* <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a> */}
             <a className="dropdown-item">Role: Staff</a>
-                            <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button>
+                           
                             <button onClick={() => this.setState({
                         goToScreen: 'Profile'})} className="dropdown-item btn btn-primary">Update Profile</button>
+                        {/* <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button> */}
+                        {/* <button className="dropdown-item btn btn-primary" onClick={() => {
+                                removeDatalocal()
+                                this.setState({
+                                    goToScreen: 'LoginAdmin'
+                                })
+                            }}>Log out</button> */}
+                         {/* <button onClick={() => this.setState({
+                                    goToScreen: 'StaffManagementAllUser' })} className="dropdown-item btn btn-primary">Manage All User</button> */}
+                            
+                        </div>
+                    </div>
+
+                    <div className="profile dropdown">
+                        <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Settings
+                        </button>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button>
+                        
                          <button onClick={() => this.setState({
                                     goToScreen: 'StaffManagementAllUser' })} className="dropdown-item btn btn-primary">Manage All User</button>
-                            <button className="dropdown-item btn btn-primary" onClick={() => {
+                        <button className="dropdown-item btn btn-primary" onClick={() => {
                                 removeDatalocal()
                                 this.setState({
                                     goToScreen: 'LoginAdmin'
                                 })
                             }}>Log out</button>
+                            
                         </div>
                     </div>
+                   
                     
                 </div>
                 <div className='headerLineBotton'></div>

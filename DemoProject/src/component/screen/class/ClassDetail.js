@@ -20,7 +20,7 @@ class ClassDetail extends Component {
 
             dataListBlog: [],
 
-            selectedPage: true,
+            selectedPage: false,
 
         }
     }
@@ -53,17 +53,27 @@ class ClassDetail extends Component {
         }
     }
     async componentDidMount() {
+		const page = localStorage.getItem('page')
+		if(page !== null && page !== undefined ){
+			if(page === 'true'){
+				this.setState({selectedPage: true})
+			}else{ 
+				this.setState({selectedPage: false})
+			}
+		}
+		
         if(userProfile.token === undefined || userProfile.token === ''){
             await getDataLocal()
         }
         this.getAllMember()
-
+		
         this.getListBlog()
     }
     onChangeSelectedPage(state) {
+		
         this.setState({
             selectedPage: state // false = page People, true = page Blog
-        })
+        },() => {localStorage.setItem('page', state)})
 
     }
     
@@ -72,7 +82,7 @@ class ClassDetail extends Component {
         const idClass = this.props.match.params.id
         return (
             <div className='header'>
-                {(!userProfile.isAdmin && !userProfile.isStaff)  && <a onClick={() => { this.onChangeSelectedPage(true) }} className='headerTitle' style={{ color: this.state.selectedPage ? 'orange' : null }}>Blog</a>}
+                {(!userProfile.isAdmin && !userProfile.isStaff && userProfile.isAdmin !== undefined)  && <a onClick={() => { this.onChangeSelectedPage(true) }} className='headerTitle' style={{ color: this.state.selectedPage ? 'orange' : null }}>Blog</a>}
                 <a onClick={() => { this.onChangeSelectedPage(false) }} className='headerTitle1' style={{ color: userProfile.isAdmin ? 'orange' : ( !this.state.selectedPage ? 'orange' : null ) }}>People</a>
                 <button onClick={() => this.setState({
                         goToScreen: (!userProfile.isAdmin && !userProfile.isStaff) ? 'HomeUser' : 'HomeAdmin'})} className="headerBack" type="back"> Back</button>

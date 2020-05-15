@@ -121,9 +121,9 @@ class HomeUser extends Component {
     onClickAddClass = async () => {
         const { addNameClass, addDesClass, addStartDate, addEndDate, addTimeClass } = this.state
         if (addNameClass.trim() === '') {
-            alert('Vui lòng nhập tên lớp học !')
+            alert('Please enter the class name!')
         } else if (addDesClass.trim() === '') {
-            alert('Vui lòng nhập nội dung giới thiệu về lớp học !')
+            alert('Please enter the content of the class!')
         } else {
             let name = addNameClass
             let des = addDesClass
@@ -258,7 +258,7 @@ class HomeUser extends Component {
                     <a className='hello'>Hello {userProfile.username }!
                     {/* {this.state.profileData !== undefined ? this.state.profileData.fullname : userProfile.username} */}
                     </a>
-                    <a className='titleScreen'>Home User</a>
+                    <a className='titleScreens'>Home User</a>
 
                     {/* <div className="modal-1" tabindex="1111" role="dialog">
                         <div className="modal-dialog" role="document">
@@ -291,10 +291,33 @@ class HomeUser extends Component {
                         <a className="dropdown-item">Account: {profileData !== undefined ? profileData.user.name : ''}</a>
             <a className="dropdown-item">Name: {profileData !== undefined ? profileData.fullname : ''}</a>
                             {/* <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a> */}
-            <a className="dropdown-item">Role: {!userProfile.isTeacher? 'Sinh viên' : 'Giảng viên'}</a>
-                            <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button>
+            <a className="dropdown-item">Role: {!userProfile.isTeacher? 'Student' : 'Teacher'}</a>
+            {/* <a className="dropdown-item">Account: {profileData !== undefined ? profileData.user.maso : ''}</a> */}
+                            {/* <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button> */}
                             <button onClick={() => this.setState({
                         goToScreen: 'Profile'})} className="dropdown-item btn btn-primary">Update Profile</button>
+                            {/* <button className="dropdown-item btn btn-primary" onClick={() => {
+                                removeDatalocal()
+                                this.setState({                                
+                                    goToScreen: 'Login'
+                                })
+                            }}>Log out</button> */}
+                        </div>
+                    </div>
+
+
+                    <div className="profile dropdown">
+                        <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Settings
+                        </button>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {/* <a className="dropdown-item">Account: {profileData !== undefined ? profileData.user.name : ''}</a>
+            <a className="dropdown-item">Name: {profileData !== undefined ? profileData.fullname : ''}</a>
+                            {/* <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a> */}
+            {/* <a className="dropdown-item">Role: {!userProfile.isTeacher? 'Sinh viên' : 'Giảng viên'}</a>  */}
+                            <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button>
+                            {/* <button onClick={() => this.setState({
+                        goToScreen: 'Profile'})} className="dropdown-item btn btn-primary">Update Profile</button> */}
                             <button className="dropdown-item btn btn-primary" onClick={() => {
                                 removeDatalocal()
                                 this.setState({                                

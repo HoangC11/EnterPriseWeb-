@@ -90,6 +90,9 @@ class RegisterAccount extends Component {
                     if(response.gmail !== undefined){
                         string += response.gmail + '\n'
                     }
+                    if(response.secretCode !== undefined){
+                        string += response.secretCode + '\n'
+                    }
 
                     
                     // if(response.gmail !== undefined){

@@ -49,7 +49,7 @@ class PeopleScreen extends Component {
                     studentName: nameST,               
                     
                     pickerStudents: response.data.map((item) => {
-                        if(!item.isTeacher){
+                        if(!item.isTeacher && !item.isAdmin && !item.isStaff){
                         return (
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                             {item.name}
@@ -174,7 +174,7 @@ class PeopleScreen extends Component {
 
                         </div>
                         <div className='divTitleDialog'>
-                            <a className='textTitleAddClassDialog'>{this.state.typeDialog === 1 ? 'Thêm giảng viên' : this.state.typeDialog === 2 ? 'Thêm sinh viên' : ''}</a>
+                            <a className='textTitleAddClassDialog'>{this.state.typeDialog === 1 ? 'Add teacher' : this.state.typeDialog === 2 ? 'Add student' : ''}</a>
                             <div className='divInput'>
                                 <ul class="list-group">
                                 {this.state.typeDialog === 1 ? 

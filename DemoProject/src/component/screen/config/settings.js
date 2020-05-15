@@ -3,9 +3,9 @@ export const userProfile = {
     password: '',
     token: '',
     rule: 1,
-    isTeacher: false,
-    isAdmin: false,
-    isStaff: false,
+    isTeacher: undefined,
+    isAdmin: undefined,
+    isStaff: undefined,
 }
 
 export function getDataLocal(){

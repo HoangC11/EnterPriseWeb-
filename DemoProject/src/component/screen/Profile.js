@@ -162,32 +162,14 @@ class Profile extends React.Component {
         <div className="container bootstrap snippet">
           <div className="row">
     <div className="col-sm-10"><h1>Hello {this.state.name}</h1></div>
-            <div className="col-sm-2"><a href="/users" className="pull-right"><img title="profile image" className="img-circle img-responsive" src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100" /></a></div>
+            <div className="col-sm-2"><a  className="pull-right"><img title="Update Profile " className="img-circle img-responsive" src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100" /></a></div>
           </div>
           <div className="row">
             <div className="col-sm-3">{/*left col*/}
-              <div className="text-center">
-                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" className="avatar img-circle img-thumbnail" alt="avatar" />
-                <h6>Upload a different photo...</h6>
-                <input type="file" className="text-center center-block file-upload" />
-              </div><br />
-              <div className="panel panel-default">
-                <div className="panel-heading">Website <i className="fa fa-link fa-1x" /></div>
-                <div className="panel-body"><a href="http://bootnipets.com">Reactjs</a></div>
-              </div>
-              <ul className="list-group">
-                <li className="list-group-item text-muted">Activity <i className="fa fa-dashboard fa-1x" /></li>
-                <li className="list-group-item text-right"><span className="pull-left"><strong>Comment</strong></span> 125</li>
-                <li className="list-group-item text-right"><span className="pull-left"><strong>Upload File</strong></span> 13</li>
-                <li className="list-group-item text-right"><span className="pull-left"><strong>Posts</strong></span> 37</li>
-                <li className="list-group-item text-right"><span className="pull-left"><strong>Chat</strong></span> 78</li>
-              </ul> 
-              <div className="panel panel-default">
-                <div className="panel-heading">Social Media</div>
-                <div className="panel-body">
-                  <i className="fa fa-facebook fa-2x" /> <i className="fa fa-github fa-2x" /> <i className="fa fa-twitter fa-2x" /> <i className="fa fa-pinterest fa-2x" /> <i className="fa fa-google-plus fa-2x" />
-                </div>
-              </div>
+              
+              
+              
+              
             </div>{/*/col-3*/}
             <div className="col-sm-9">
               <ul className="nav nav-tabs">
