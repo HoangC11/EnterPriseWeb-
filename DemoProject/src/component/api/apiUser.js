@@ -98,7 +98,7 @@ export async function getListBlogInClass(idClass) {
 
 
 export async function uploadFileBlogApi(file, classId) {
-    const api = API + 'classes/' + '5e63d232b69d622dd0c1cd54' + '/upload'
+    const api = API + 'classes/' + classId + '/upload'
     //5e63d232b69d622dd0c1cd54
     // const api = 'https://classroom1234.herokuapp.com/classes/5e63d232b69d622dd0c1cd54/upload'
     const fd = new FormData()

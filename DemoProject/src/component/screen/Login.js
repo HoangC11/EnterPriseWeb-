@@ -14,7 +14,7 @@ import { userProfile, saveDataLocal, getDataLocal } from './config/settings'
 import {forGotPassword} from '../api/apiUser'
 class Login extends React.Component {
     state = {
-        username: 'nguyenthib',
+        username: 'nguyenvana',
         password: '123456789',
         goToScreen: '',
         emailForgot: ''

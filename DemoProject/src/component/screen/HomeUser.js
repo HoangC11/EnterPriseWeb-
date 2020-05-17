@@ -174,13 +174,57 @@ class HomeUser extends Component {
             })
     }
     
-
+    checkPrompt(string, type, strCompare){
+        var item = prompt(string)
+        if(item !== null){
+            if(item === ''){
+                if(type === 1){ // old Pass
+                    alert('Old password not empty')
+                    
+                }else if(type === 2){ // new Pass
+                    alert('New password not empty')
+                }else if(type === 3){
+                    alert('Confirm new password not empty')
+                }
+                return this.checkPrompt(string , type,strCompare)
+            }else{
+                if(type === 3){
+                    if(item === strCompare){
+                        return {
+                            status: 2, 
+                            value: item
+                        }
+                    }else{
+                        alert('New password and password confirm not same')
+                        return this.checkPrompt(string , type, strCompare)
+                    }
+                }else{
+                    return {
+                        status: 2, 
+                        value: item
+                    }
+                }
+                
+            }
+        }else{
+            return {
+                status: 1, // Bấm cancel
+                value: undefined
+            }
+        }
+    }
     async onChangePassword(){
-        var oldPass = prompt('Input old password ')
-        var newPass = prompt('Inpupt new password ')
-        var confirmPass = prompt('Confirm new password ')
+
+        var oldPass= this.checkPrompt('Enter the old password ', 1, '')
+        if(oldPass.status !== 1){
+            var newPass = this.checkPrompt('Enter the new password', 2,'')
+            if(newPass.status !== 1){
+                var confirmPass = this.checkPrompt('Enter the confirm new password', 3, newPass.value)
+            }
+        }
         
-        const response = await this.apiChangePassword(oldPass+'', newPass+'', confirmPass+'')
+        if(oldPass !== null && newPass !== null && confirmPass !== null){
+                    const response = await this.apiChangePassword(oldPass.value +'', newPass.value +'', confirmPass.value +'')
         if(response !== undefined){
             if(response.statusCode === 1){
                 alert(response.message)
@@ -188,8 +232,25 @@ class HomeUser extends Component {
                 alert(response.message)
             }
         }else{
-            alert('Connect server failed')
+            alert('Connect server failed!')
         }
+        }
+
+        // var oldPass = prompt('Input old password ')
+        // console.log('oldPasssss: ' , oldPass)
+        // var newPass = prompt('Inpupt new password ')
+        // var confirmPass = prompt('Confirm new password ')
+        
+        // const response = await this.apiChangePassword(oldPass+'', newPass+'', confirmPass+'')
+        // if(response !== undefined){
+        //     if(response.statusCode === 1){
+        //         alert(response.message)
+        //     }else{
+        //         alert(response.message)
+        //     }
+        // }else{
+        //     alert('Connect server failed')
+        // }
     }
 
     render() {

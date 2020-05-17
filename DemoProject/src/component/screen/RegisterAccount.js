@@ -65,7 +65,7 @@ class RegisterAccount extends Component {
             )
             console.log('ressponse: ', response)
             if (response !== undefined) {
-                if (response.statusCode === 1) {
+                if (response.data !== undefined) {
                     alert('Register success!')
                     this.setState({
                         username: '',
@@ -76,7 +76,6 @@ class RegisterAccount extends Component {
 
                     })
                 }else{
-                    console.log('222222: ', response)
                     let string = ''
                     if(response.name !== undefined){
                         string += response.name + '\n'

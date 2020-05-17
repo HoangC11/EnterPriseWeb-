@@ -46,6 +46,40 @@ export async function adminGetAllUser() {
         })
 }
 
+export async function adminGetAllStudentNotJoinClass(idClass) {
+    const api = API + 'staff/' + idClass + '/user/allstudents '
+    return await fetch(api, {
+        method: 'GET',
+        headers: new Headers({
+            'Authorization': userProfile.token
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
+export async function adminGetAllTeacherNotJoinClass(idClass) {
+    const api = API + 'staff/' + idClass + '/user/allteachers '
+    return await fetch(api, {
+        method: 'GET',
+        headers: new Headers({
+            'Authorization': userProfile.token
+        }),
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}
+
 
 
 export async function adminGetAllProfile() {

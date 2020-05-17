@@ -43,7 +43,7 @@ class BlogScreen extends Component {
         }
     }
     onChangeImagePostBlog = async (event) => {
-        const response = await uploadFileBlogApi(event.target.files[0])
+        const response = await uploadFileBlogApi(event.target.files[0], this.props.idClass)
         if (response !== undefined) {
             if (response.status === 200) {
                 if (response.data.statusCode === 1) {

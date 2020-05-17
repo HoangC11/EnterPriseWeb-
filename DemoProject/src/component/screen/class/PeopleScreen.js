@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {adminGetAllUser, adminAddTeacher, adminAddStudent, staffDeleteUserByClass} from '../../api/apiAdmin'
+import {adminGetAllUser, adminAddTeacher, adminAddStudent, staffDeleteUserByClass, adminGetAllStudentNotJoinClass, adminGetAllTeacherNotJoinClass} from '../../api/apiAdmin'
 import '../../css/ClassDetailCSS.css'
 import { userProfile } from '../config/settings';
 class PeopleScreen extends Component {
@@ -84,8 +84,63 @@ class PeopleScreen extends Component {
            }
        }
     }
+    async getAllStudentNotJoinClass(){
+        const response = await adminGetAllStudentNotJoinClass(this.props.idClass)
+        if(response !== undefined){
+            if(response.statusCode === 1){
+                if(response.data !== undefined && response.data.length > 0){
+                    this.setState({
+                        nameST: response.data[0].name,
+                        pickerStudents: response.data.map((item) => {
+                            // if(!item.isTeacher && !item.isAdmin && !item.isStaff){
+                            
+                            // }
+                            return (
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {item.name}
+                                <button onClick={() => { this.onAddUserForClass(item)}} class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
+                                
+                              </li>
+                                )
+                        }),
+                        
+                    })
+                }
+            }
+        }
+    }
+
+    async getAllTeacherNotJoinClass(){
+        const response = await adminGetAllTeacherNotJoinClass(this.props.idClass)
+        if(response !== undefined){
+            if(response.statusCode === 1){
+                if(response.data !== undefined && response.data.length > 0){
+                    this.setState({
+                        nameTC: response.data[0].name,
+                        pickerTeachers: response.data.map((item) => {
+                            // if(!item.isTeacher && !item.isAdmin && !item.isStaff){
+                            
+                            // }
+                            return (
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {item.name}
+                                <button onClick={() => { this.onAddUserForClass(item)}} class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
+                                
+                              </li>
+                                )
+                        }),
+                        
+                    })
+                }
+            }
+        }
+    }
+
+
     componentWillMount(){
-        this.getAllUser()
+        this.getAllStudentNotJoinClass()
+        this.getAllTeacherNotJoinClass()
+        // this.getAllUser()
     }
     componentDidMount(){
         this.setState({
