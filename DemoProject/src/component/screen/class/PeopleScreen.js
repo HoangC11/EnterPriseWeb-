@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {adminGetAllUser, adminAddTeacher, adminAddStudent, staffDeleteUserByClass, adminGetAllStudentNotJoinClass, adminGetAllTeacherNotJoinClass} from '../../api/apiAdmin'
+import {adminGetAllUser, adminAddTeacher, adminAddStudent, staffDeleteUserByClass, adminGetAllStudentNotJoinClass, adminGetAllTeacherNotJoinClass, staffAddManyStudents} from '../../api/apiAdmin'
 import '../../css/ClassDetailCSS.css'
 import { userProfile } from '../config/settings';
 class PeopleScreen extends Component {
@@ -18,6 +18,7 @@ class PeopleScreen extends Component {
 
             dataStudent: [],
             pickerStudents: [],
+            dataStudentsSelected: [],
             pickerTeachers: [],
 
             selectedStudent: '',
@@ -88,22 +89,29 @@ class PeopleScreen extends Component {
         const response = await adminGetAllStudentNotJoinClass(this.props.idClass)
         if(response !== undefined){
             if(response.statusCode === 1){
-                if(response.data !== undefined && response.data.length > 0){
+                if(response.data !== undefined && response.data.length > 0){                
                     this.setState({
                         nameST: response.data[0].name,
-                        pickerStudents: response.data.map((item) => {
-                            // if(!item.isTeacher && !item.isAdmin && !item.isStaff){
-                            
-                            // }
-                            return (
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {item.name}
-                                <button onClick={() => { this.onAddUserForClass(item)}} class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
-                                
-                              </li>
-                                )
+                        dataStudentsSelected: response.data.map((item) => {
+                            return Object.assign(item, {selected: false})
                         }),
                         
+                        
+                    }, () => {
+                        this.setState({
+                            pickerStudents: this.state.dataStudentsSelected.map((item) => {
+                                // if(!item.isTeacher && !item.isAdmin && !item.isStaff){
+                                
+                                // }
+                                return (
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {item.name}
+                                <button onClick={() => { this.onAddUserForClass(item)}} class="btn btn-outline-success my-2 my-sm-0" type="submit">{!item.selected ? 'Add' : 'X'}</button>
+                                    
+                                  </li>
+                                    )
+                            }),
+                        })
                     })
                 }
             }
@@ -169,8 +177,8 @@ class PeopleScreen extends Component {
             const response = await adminAddTeacher(this.props.idClass, item.id)
                         if(response !== undefined){
                             if(response.statusCode === 1){
-                                alert('Add Success!')
-                                
+                                alert('Add Success!')   
+                                this.getAllTeacherNotJoinClass()                                    
                                 this.props.getAllMember()
                             }else{
                                 alert(response.message)
@@ -180,41 +188,96 @@ class PeopleScreen extends Component {
                         }
         }else if( this.state.typeDialog === 2){
             // Thêm sinh viên
-            const response = await adminAddStudent(this.props.idClass, item.id)
-                        if(response !== undefined){
-                            if(response.statusCode === 1){
-                                alert('Add Success!')
-                                this.props.getAllMember()
-                            }else{
-                                alert(response.message)
-                            }
-                        }else{
-                            alert('Add Failed !')
-                        }
+
+            let data = this.state.dataStudentsSelected.map((value) => {
+                if(item.id === value.id){
+                    return Object.assign(value, {selected: !value.selected})
+                }else{
+                    return value
+                }
+            })
+            if(data.length > 0){
+                this.setState({
+                    dataStudentsSelected: data
+                }, () => {
+                    console.log('ereee: ', this.state.dataStudentsSelected)
+                    this.setState({
+                        pickerStudents: this.state.dataStudentsSelected.map((item) => {
+                            // if(!item.isTeacher && !item.isAdmin && !item.isStaff){
+                            
+                            // }
+                            return (
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {item.name}
+                            <button onClick={() => { this.onAddUserForClass(item)}} class="btn btn-outline-success my-2 my-sm-0" type="submit">{!item.selected ? 'Add' : 'X'}</button>
+                                
+                              </li>
+                                )
+                        }),
+                    })
+                })
+            }
         }else{
 
         }
     }
 
     async onDeleteUser(user, type){
-        // console.log('mmmmmmmmmmmmm: ', user)
-        if(type === 0){
-            const response = await staffDeleteUserByClass(this.props.idClass, user._id)
-            if(response !== undefined){
-                alert(response.message)
-                this.props.getAllMember()
+        if(user !== undefined){
+            if(type === 0){
+           
+                const response = await staffDeleteUserByClass(this.props.idClass, user._id)
+                if(response !== undefined){
+                    if(response.success !== undefined && response.success){
+                        this.props.getAllMember()
+                        alert('Delete teacher success')
+                    }
+                    
+                }else{
+                    alert('Delete teacher failed')
+                }
             }else{
-                alert('Delete teacher failed')
+                const response = await staffDeleteUserByClass(this.props.idClass, user._id)
+                if(response !== undefined){
+                    if(response.success !== undefined && response.success){
+                        alert('Delete student success')
+                        this.props.getAllMember()
+                    }
+                    // this.getAllUser()
+                    
+                }else{
+                    alert('Delete student failed')
+                }
+            }
+        }
+    }
+    async addManyStudent(){
+        let arrayStudents = this.state.dataStudentsSelected.filter((item) => {
+            if(item.selected){
+                return item
+            }
+        })
+        let arr = []
+        if(arrayStudents.length> 0 ){
+             arr = arrayStudents.map((item) => {
+                return item.id
+            })
+        }
+        if(arr.length > 0){
+            const response = await staffAddManyStudents(this.props.idClass, arr)
+            if(response !== undefined){
+                if(response.statusCode === 1){
+                    alert('Add many student success')
+                    this.props.getAllMember()
+                    this.getAllStudentNotJoinClass()
+                }else{
+                    alert('Add many student failed')
+                }
+            }else{
+                alert('Add many student failed')
             }
         }else{
-            const response = await staffDeleteUserByClass(this.props.idClass, user._id)
-            if(response !== undefined){
-                alert(response.message)
-                // this.getAllUser()
-                this.props.getAllMember()
-            }else{
-                alert('Delete student failed')
-            }
+            alert('You must choose student')
         }
     }
     onChangeSelected(e){
@@ -239,21 +302,13 @@ class PeopleScreen extends Component {
                                     :
                                     (
                                         this.state.pickerStudents
+
                                     )
                               }
-  {/* <li class="list-group-item d-flex justify-content-between align-items-center">
-    Cras justo odio
-    <span class="badge badge-primary badge-pill">14</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Dapibus ac facilisis in
-    <span class="badge badge-primary badge-pill">2</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Morbi leo risus
-    <span class="badge badge-primary badge-pill">1</span>
-  </li> */}
 </ul>
+{this.state.typeDialog !== 1 && 
+                                (<button onClick={() => {this.addManyStudent()}} type="button" class="btn btn-primary">Add students</button>)
+                              }
                                 {/* <a>Nhập tên {this.state.typeDialog === 1 ? 'giảng viên' : this.state.typeDialog === 2 ? 'sinh viên' : ''}: </a>
                                 <select value={this.state.addName} onChange={(e) => {
                                     this.onChangeSelected(e)

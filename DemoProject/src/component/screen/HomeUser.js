@@ -112,6 +112,18 @@ class HomeUser extends Component {
 
         }
     }
+
+    onClickItem(userProfile ){
+        if(!userProfile.isTeacher ){
+            // alert('Teacherrrrrr')
+            this.setState({                                
+                goToScreen: 'DashboardStudent'})
+        }else if(!userProfile.isTeacher ){
+            // alert('Studenttttttttttt')
+            this.setState({                                
+                goToScreen: 'DashboardTeacher'})
+        }
+    }
     onAddClass(visible) {
 
         this.setState({
@@ -372,13 +384,13 @@ class HomeUser extends Component {
                             Settings
                         </button>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        {/* <a className="dropdown-item">Account: {profileData !== undefined ? profileData.user.name : ''}</a>
-            <a className="dropdown-item">Name: {profileData !== undefined ? profileData.fullname : ''}</a>
-                            {/* <a className="dropdown-item">Facebook: {profileData !== undefined ? profileData.social.facebook : ''}</a> */}
-            {/* <a className="dropdown-item">Role: {!userProfile.isTeacher? 'Sinh viên' : 'Giảng viên'}</a>  */}
                             <button onClick={() => {this.onChangePassword()}} className="dropdown-item btn btn-primary">Change password</button>
-                            {/* <button onClick={() => this.setState({
-                        goToScreen: 'Profile'})} className="dropdown-item btn btn-primary">Update Profile</button> */}
+                            <button className="dropdown-item btn btn-primary" onClick={() => {this.onClickItem(userProfile)}}>Dashboard</button>
+                                 {/* this.setState({                                
+                                    goToScreen: 'DashboardStudent'
+                                })
+                            }}>Dashboard</button> */}
+                            
                             <button className="dropdown-item btn btn-primary" onClick={() => {
                                 removeDatalocal()
                                 this.setState({                                
@@ -404,6 +416,12 @@ class HomeUser extends Component {
                     }
                     {this.state.goToScreen === 'Profile' &&
                         <Redirect to={{ pathname: 'Profile' }} />
+                    }
+                    {this.state.goToScreen === 'DashboardStudent' &&
+                        <Redirect to={{ pathname: 'DashboardStudent' }} />
+                    }
+                    {this.state.goToScreen === 'DashboardTeacher' &&
+                        <Redirect to={{ pathname: 'DashboardTeacher' }} />
                     }
 
                 </div>

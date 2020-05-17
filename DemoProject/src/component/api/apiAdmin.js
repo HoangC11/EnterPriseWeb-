@@ -355,3 +355,41 @@ export async function staffDeleteUserByClass(idClass, idUser) {
             }
         })
 }
+
+export async function staffAddManyStudents(idClass, arrayStudents) {
+    const api = API + 'staff/class/' + idClass + '/addstudents'
+    let str = ''
+    let index = 0
+    for(let item of arrayStudents){
+        if(index === 0){
+            str +=item
+            index ++
+        }else{
+            str +=  ',' + item
+        }
+    }
+    // console.log('eeee: ', str)
+    // let form = new FormData()
+    // form.set('idUser', JSON.stringify(str))
+    // console.log('xcxcx: ', form)
+
+    let body = {
+        idUser: str
+    }
+    // let d = new FormData(new HTMLFormElement(body))
+    return await fetch(api, {
+        method: 'POST',
+        headers: new Headers({
+            'Authorization': userProfile.token,
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(body)
+    })
+        .then(response => response.json())
+        .catch(err => {
+            return {
+                statusCode: -1,
+                message: errorMessage
+            }
+        })
+}

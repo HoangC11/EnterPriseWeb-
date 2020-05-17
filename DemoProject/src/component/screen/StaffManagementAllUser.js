@@ -22,6 +22,17 @@ export default class StaffManagementAllUser extends React.Component{
         }
     }  
     
+    onClickItem(item ){
+        if(item.isTeacher ){
+            // alert('Teacherrrrrr')
+            this.setState({                                
+                goToScreen: 'DashboardTeacher'})
+        }else if(!item.isTeacher && !item.isAdmin && !item.isStaff){
+            // alert('Studenttttttttttt')
+            this.setState({                                
+                goToScreen: 'DashboardStudent'})
+        }
+    }
     
     async getAllUser(){
         const response = await staffGetAllUser()
@@ -34,7 +45,7 @@ export default class StaffManagementAllUser extends React.Component{
                         return( 
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                             {item.name}
-                            <a class="btn btn-outline-success my-2 my-sm-0" type="submit">{item.isStaff ? 'Staff' : item.isAdmin ? 'Admin' : item.isTeacher ? 'Teacher' : 'Student'}</a>
+                            <a onClick={() => {this.onClickItem(item)}} class="btn btn-outline-success my-2 my-sm-0" type="submit">{item.isStaff ? 'Staff' : item.isAdmin ? 'Admin' : item.isTeacher ? 'Dashboard Teacher' : 'Dashboard Student'}</a>
                             <a class="btn btn-outline-success my-2 my-sm-0" type="submit">{(item.classes !== undefined && item.classes.length > 0) ? 'Had class' : `No class yet` }</a>
                             {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit"></button> */}
                             </li>
@@ -70,6 +81,12 @@ export default class StaffManagementAllUser extends React.Component{
                 </ul>
                 {this.state.goToScreen === 'HomeAdmin' &&
                         <Redirect to={{ pathname: '/HomeAdmin' }} />
+                    }
+                {this.state.goToScreen === 'DashboardStudent' &&
+                        <Redirect to={{ pathname: 'DashboardStudent' }} />
+                    }
+                    {this.state.goToScreen === 'DashboardTeacher' &&
+                        <Redirect to={{ pathname: 'DashboardTeacher' }} />
                     }
 
             </div>

@@ -7,10 +7,12 @@ import RegisterAccount from './component/screen/RegisterAccount'
 import LoginAdmin from './component/screen/LoginAdmin'
 import Profile from './component/screen/Profile'
 import ForgotPassword from './component/screen/ForgotPassword'
-import Dashboard from './component/screen/Dashboard'
 import ManagementAllUser from './component/screen/ManagementAllUser'
 import ManagementAddUserToSystem from './component/screen/ManagementAddUserToSystem'
 import StaffManagementAllUser from './component/screen/StaffManagementAllUser'
+import DashboardStudent from './component/screen/DashboardStudent'
+import DashboardTeacher from './component/screen/DashboardTeacher'
+import DashboardStaff from './component/screen/DashboardStaff'
 // import Chat from './component/screen/Chat'
 import {
   BrowserRouter as Router,
@@ -53,9 +55,6 @@ class App extends React.Component {
             {/* <Profile /> */}
           </Route>
 
-          <Route path="/Dashboard" component={Dashboard}>
-            {/* <Profile /> */}
-          </Route>
           <Route path="/ManagementAllUser" component={ManagementAllUser}>
             {/* <Profile /> */}
           </Route>
@@ -64,6 +63,16 @@ class App extends React.Component {
             {/* <Profile /> */}
           </Route>
           <Route path="/StaffManagementAllUser" component={StaffManagementAllUser}>
+            {/* <Profile /> */}
+          </Route>
+
+          <Route path="/DashboardStudent" component={DashboardStudent}>
+            {/* <Profile /> */}
+          </Route>
+          <Route path="/DashboardTeacher" component={DashboardTeacher}>
+            {/* <Profile /> */}
+          </Route>
+          <Route path="/DashboardStaff" component={DashboardStaff}>
             {/* <Profile /> */}
           </Route>
           

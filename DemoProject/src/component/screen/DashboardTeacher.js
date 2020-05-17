@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-export default class Dashboard extends React.Component{
+export default class DashboardTeacher extends React.Component{
 
     render(){
       return(

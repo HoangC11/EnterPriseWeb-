@@ -54,9 +54,9 @@ class ForgotPassword extends React.Component {
         const token = this.props.match.params.token
         const response = await this.apiResetPassWord(token, this.state.newPassword, this.state.confirmPassword)
         if(response !== undefined){
-          console.log('resssssss: ', response)
-          if(response.statusCode === 1 ){
+          if(response.data !== undefined ){
             alert('Change password success')
+            this.setState({goToScreen: 'Login'})
           }else{
             alert('Change password failed')
           }
