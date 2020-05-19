@@ -266,7 +266,7 @@ class PeopleScreen extends Component {
         if(arr.length > 0){
             const response = await staffAddManyStudents(this.props.idClass, arr)
             if(response !== undefined){
-                if(response.statusCode === 1){
+                if(response.success){
                     alert('Add many student success')
                     this.props.getAllMember()
                     this.getAllStudentNotJoinClass()

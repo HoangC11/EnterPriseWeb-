@@ -368,15 +368,9 @@ export async function staffAddManyStudents(idClass, arrayStudents) {
             str +=  ',' + item
         }
     }
-    // console.log('eeee: ', str)
-    // let form = new FormData()
-    // form.set('idUser', JSON.stringify(str))
-    // console.log('xcxcx: ', form)
-
     let body = {
         idUser: str
     }
-    // let d = new FormData(new HTMLFormElement(body))
     return await fetch(api, {
         method: 'POST',
         headers: new Headers({

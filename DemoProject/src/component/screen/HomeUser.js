@@ -114,14 +114,14 @@ class HomeUser extends Component {
     }
 
     onClickItem(userProfile ){
-        if(!userProfile.isTeacher ){
+        if(userProfile.isTeacher ){
             // alert('Teacherrrrrr')
             this.setState({                                
-                goToScreen: 'DashboardStudent'})
-        }else if(!userProfile.isTeacher ){
+                goToScreen: 'DashboardTeacher'})
+        }else if(!userProfile.isTeacher && !userProfile.isAdmin && !userProfile.isStaff){
             // alert('Studenttttttttttt')
             this.setState({                                
-                goToScreen: 'DashboardTeacher'})
+                goToScreen: 'DashboardStudent'})
         }
     }
     onAddClass(visible) {
