@@ -97,10 +97,10 @@ class ForgotPassword extends React.Component {
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="first_name"><h4>New password</h4></label>
-                        <input onChange={(text) => {this.onChangeText(text, 1)}} value={this.state.fullname} type="text" className="form-control" name="first_name" id="first_name" placeholder="Fullname" title="enter your full name if any." />
+                        <input onChange={(text) => {this.onChangeText(text, 1)}} value={this.state.fullname} type="text" className="form-control" name="first_name" id="first_name" placeholder="New password" title="enter your password" />
 
                         <label htmlFor="first_name"><h4>Confirm password</h4></label>
-                        <input onChange={(text) => {this.onChangeText(text, 2)}} value={this.state.fullname} type="text" className="form-control" name="first_name" id="first_name" placeholder="Fullname" title="enter your full name if any." />
+                        <input onChange={(text) => {this.onChangeText(text, 2)}} value={this.state.fullname} type="text" className="form-control" name="first_name" id="first_name" placeholder="Confirm password" title="enter your confirm password" />
                       </div>
                     </div>
             
