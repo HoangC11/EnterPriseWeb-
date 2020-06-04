@@ -157,7 +157,7 @@ class PeopleScreen extends Component {
     }
     componentDidUpdate(prevProps){
         if(prevProps.dataStudents !== this.props.dataStudents){
-            if(this.props.dataStudents !== undefined && this.props.dataStudents.length > 0){
+            if(this.props.dataStudents !== undefined){
                 this.setState({
                     dataStudent: this.props.dataStudents
                 })

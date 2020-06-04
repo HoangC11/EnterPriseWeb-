@@ -42,6 +42,7 @@ export default class StaffManagementAllUser extends React.Component{
                 this.setState({
                     dataAllUser: response.data,
                     renderData : response.data.map((item) => {
+                        console.log(item)
                         return( 
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                             {item.name}
